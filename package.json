@@ -4,6 +4,7 @@
   "private": true,
   "description": "Discord OAuth verification + rank check for the Hogarth Institute of Witchery site",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "@vercel/postgres": "^0.10.0"
   }
 }

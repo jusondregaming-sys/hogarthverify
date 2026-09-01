@@ -402,6 +402,7 @@
     <a href="lore.html">Lore</a>
     <a href="start.html" class="active">Start</a>
     <a href="store.html">Store</a>
+    <a href="profile.html">Profile</a>
   </nav>
 
   <div class="socials" aria-label="Social links">
@@ -452,35 +453,9 @@
 
     <div class="form-wrap locked" id="form-wrap">
       <div class="panel-heading" style="font-size:1.3rem; margin-bottom:1.4rem;">Register a Character</div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="char-name">Character Name</label>
-          <input type="text" id="char-name" disabled placeholder="e.g. Wren Ashcombe">
-        </div>
-        <div class="field">
-          <label for="char-age">Age</label>
-          <input type="text" id="char-age" disabled placeholder="e.g. 16">
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="char-house">House / Affiliation</label>
-        <select id="char-house" disabled>
-          <option>Select one</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="char-bio">Short Bio</label>
-        <textarea id="char-bio" disabled placeholder="A few sentences on who they are..."></textarea>
-      </div>
-
-      <button class="btn" id="submit-btn" type="button" disabled>Submit Character</button>
-      <p class="form-footnote">This form is a placeholder. It will be replaced with an embedded Google Form.</p>
+      <p class="panel-intro" style="margin-bottom:1.4rem;">Character registration now happens on your Profile page, where you can also see everyone you've already created.</p>
+      <a class="btn" id="profile-link-btn" href="profile.html" style="opacity:0.35; pointer-events:none;">Go to Profile</a>
     </div>
-
-    <p class="note">Discord verification and rank checks require a small server-side connection to the Discord API (an OAuth login plus a bot that can read your roles in the Hogarth server) — this can't be done from the static page alone. The buttons above are placeholders until that connection is built.</p>
 
   </main>
 
@@ -489,8 +464,7 @@
     const rankStatus = document.getElementById('rank-status');
     const verifyBtn = document.getElementById('verify-btn');
     const formWrap = document.getElementById('form-wrap');
-    const submitBtn = document.getElementById('submit-btn');
-    const formFields = formWrap.querySelectorAll('input, select, textarea');
+    const profileLinkBtn = document.getElementById('profile-link-btn');
 
     function setStatus(el, text, ok) {
       el.innerHTML = `<span class="dot" style="background:${ok ? '#4a7a3f' : '#a13a2f'};"></span>${text}`;
@@ -498,8 +472,8 @@
 
     function unlockForm(rank, slots) {
       formWrap.classList.remove('locked');
-      formFields.forEach((f) => (f.disabled = false));
-      submitBtn.disabled = false;
+      profileLinkBtn.style.opacity = '1';
+      profileLinkBtn.style.pointerEvents = 'auto';
       const slotText = slots === 1 ? '1 character' : `${slots} characters`;
       setStatus(rankStatus, `Rank confirmed: ${rank} — you can register ${slotText}`, true);
     }
