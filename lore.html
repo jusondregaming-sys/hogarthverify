@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lore — Hogarth Institute of Witchery</title>
+<link rel="stylesheet" href="grain.css">
+<link rel="stylesheet" href="fonts.css">
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #f8f3e9;
+    color: #1b0c08;
+    position: relative;
+  }
+
+  /* ---------- nav (shared with index / store) ---------- */
+
+  nav.top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: 1.6rem 1rem;
+    z-index: 10;
+  }
+
+  nav a {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    position: relative;
+    padding-left: 0;
+    transition: padding-left 0.2s ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    opacity: 0.6;
+  }
+
+  nav a.active {
+    padding-left: 1.1em;
+  }
+
+  nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(0.3em - 1px);
+    width: 0.7em;
+    height: 0.7em;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .socials {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    top: 1.7rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+  }
+
+  .socials a {
+    color: #1b0c08;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+  }
+
+  .socials a:hover {
+    opacity: 1;
+  }
+
+  .socials svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+    fill: currentColor;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    padding: clamp(8rem, 16vh, 11rem) 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1.lore-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #1b0c08;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-size: clamp(2.8rem, 10vw, 6.5rem);
+  }
+
+  .lore-sub {
+    margin-top: 1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    letter-spacing: 0.02em;
+    color: #1b0c08;
+    opacity: 0.7;
+  }
+
+  /* ---------- tabs (shared with store) ---------- */
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    margin: 2.75rem 0 0;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.15);
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0;
+    position: relative;
+  }
+
+  .tab:hover {
+    opacity: 0.75;
+  }
+
+  .tab.active {
+    opacity: 1;
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.13rem;
+    height: 1px;
+    background: #1b0c08;
+  }
+
+  /* ---------- content ---------- */
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.75rem 6rem;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  .panel-heading {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    color: #1b0c08;
+    margin-bottom: 1.1rem;
+  }
+
+  .panel-intro {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #1b0c08;
+    opacity: 0.75;
+    margin-bottom: 1.6rem;
+  }
+
+  /* disclaimer block */
+
+  .disclaimer-box {
+    border: 1px solid rgba(27, 12, 8, 0.18);
+    background: rgba(27, 12, 8, 0.03);
+    padding: 1.6rem 1.75rem;
+  }
+
+  .disclaimer-box p {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: #1b0c08;
+    opacity: 0.75;
+  }
+
+  .disclaimer-box p + p {
+    margin-top: 1rem;
+  }
+
+  .disclaimer-note {
+    margin-top: 1.1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* accordion */
+
+  .accordion {
+    border-top: 1px solid rgba(27, 12, 8, 0.12);
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid rgba(27, 12, 8, 0.12);
+  }
+
+  .accordion-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 0;
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    color: #1b0c08;
+  }
+
+  .accordion-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-item summary .icon {
+    flex-shrink: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    position: relative;
+    opacity: 0.6;
+    transition: transform 0.25s ease;
+  }
+
+  .accordion-item summary .icon::before,
+  .accordion-item summary .icon::after {
+    content: '';
+    position: absolute;
+    background: #1b0c08;
+  }
+
+  .accordion-item summary .icon::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .accordion-item summary .icon::after {
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    transform: translateX(-50%);
+    transition: opacity 0.25s ease;
+  }
+
+  .accordion-item[open] summary .icon::after {
+    opacity: 0;
+  }
+
+  .accordion-body {
+    padding: 0 0 1.5rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #1b0c08;
+    opacity: 0.78;
+    max-width: 58ch;
+  }
+
+  .accordion-body p + p {
+    margin-top: 0.9rem;
+  }
+
+  .tag {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  .placeholder {
+    padding: 2.5rem 0 0.5rem;
+    text-align: center;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    color: #1b0c08;
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  /* ---------- spell categories ---------- */
+
+  .spell-category {
+    border-bottom: 1px solid rgba(27, 12, 8, 0.12);
+  }
+
+  .spell-category summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.15rem 0;
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    color: #1b0c08;
+  }
+
+  .spell-category summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .spell-category summary .dot {
+    flex-shrink: 0;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--accent, #8a8a8a);
+    box-shadow: 0 0 0 1px rgba(27, 12, 8, 0.15);
+  }
+
+  .spell-category summary .count {
+    margin-left: auto;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    text-transform: uppercase;
+  }
+
+  .spell-category-body {
+    padding: 0 0 1.6rem;
+  }
+
+  .spell-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .spell-card {
+    border-left: 3px solid var(--accent, #8a8a8a);
+    padding: 0.2rem 0 0.2rem 1rem;
+  }
+
+  .spell-name {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1rem;
+    color: #1b0c08;
+  }
+
+  .spell-alt {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.78rem;
+    opacity: 0.55;
+    margin-left: 0.4em;
+  }
+
+  .spell-desc {
+    margin-top: 0.35rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #1b0c08;
+    opacity: 0.78;
+    max-width: 56ch;
+  }
+
+  .spell-meta {
+    margin-top: 0.55rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .spell-meta span {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+  }
+
+  .spell-meta span b {
+    font-weight: 800;
+    opacity: 1;
+    color: var(--accent, #1b0c08);
+    filter: brightness(0.75);
+  }
+
+  .spell-side {
+    margin-top: 0.45rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #1b0c08;
+    opacity: 0.6;
+  }
+
+  .ritual-steps {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #1b0c08;
+    opacity: 0.78;
+  }
+
+  .ritual-steps li + li {
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 520px) {
+    nav.top {
+      gap: 1.2rem;
+      padding: 1.1rem 0.75rem;
+    }
+    .socials {
+      top: 1.2rem;
+    }
+    .tabs {
+      gap: 1.1rem 1.4rem;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+  <nav class="top">
+    <a href="index.html">Home</a>
+    <a href="lore.html" class="active">Lore</a>
+    <a href="start.html">Start</a>
+    <a href="store.html">Store</a>
+  </nav>
+
+  <div class="socials" aria-label="Social links">
+    <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@cxydreprojects" aria-label="TikTok" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="22 7 22 11 20 11 20 10 18 10 18 9 17 9 17 19 16 19 16 20 15 20 15 21 14 21 14 22 13 22 13 23 7 23 7 22 6 22 6 21 5 21 5 20 4 20 4 19 3 19 3 18 2 18 2 14 3 14 3 12 4 12 4 11 5 11 5 10 6 10 6 9 10 9 10 13 8 13 8 14 7 14 7 17 8 17 8 18 11 18 11 17 12 17 12 1 16 1 16 2 17 2 17 4 18 4 18 5 19 5 19 6 20 6 20 7 22 7"/></svg>
+    </a>
+    <a href="https://www.youtube.com/channel/UCnlTNtY1HhAfIJjWrIQT5kw" aria-label="YouTube" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,7v-2h-2v-1H4v1h-2v2h-1v10h1v2h2v1h16v-1h2v-2h1V7h-1Zm-10,8h-2v-6h2v1h2v1h2v2h-2v1h-2v1Z"/></svg>
+    </a>
+    <a href="https://discord.gg/Mt8sCFcHVF" aria-label="Discord" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
+    </a>
+  </div>
+
+  <div class="hero">
+    <h1 class="lore-title">The Lore</h1>
+    <p class="lore-sub">the history, magic, and world behind Hogarth</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" aria-selected="true" data-panel="disclaimer">Disclaimer</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="background">Background</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="spells">Spells</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="classes">Classes</button>
+  </div>
+
+  <main>
+
+    <!-- ---------- DISCLAIMER ---------- -->
+    <section class="panel active" id="disclaimer" role="tabpanel">
+      <h2 class="panel-heading">Disclaimer</h2>
+      <div class="disclaimer-box">
+        <p>Hogarth Academy of Witchcraft &amp; Wizardry is a Roleplay, based on Discord (and soon to be Minecraft) created by Cxyb3ria and Jusondre. J. K. Rowling's Wizarding World heavily inspires it, and anything mentioned directly about Rowling's Wizarding World within this document (especially by our members) is &copy; &amp; TM by Warner Bros. Entertainment Inc., with Publishing Rights &copy; by J.K. Rowling.</p>
+        <p>The majority of Hogarth Academy's information, especially the original characters, lore, history and spells, is created by the owners, Cxyb3ria and Jusondre, and we do not approve the use of our information outside of the community unless written permission is granted.</p>
+        <p>All graphics and artwork produced by Cxyb3ria, for Hogarth Academy, can only be shared outside the community by Cxyb3ria and Jusondre, unless stated otherwise. If you desire similar graphics and artworks for your personal project(s), please contact Cxyb3ria on Discord/IG.</p>
+        <p>Sidenote: Some terminology is derived from Latin translations of words and phrases, and subjects such as 'Magickal creatures' are derived from Scottish/Irish folklore, which belong to the public domain.</p>
+      </div>
+    </section>
+
+    <!-- ---------- BACKGROUND ---------- -->
+    <section class="panel" id="background" role="tabpanel">
+      <h2 class="panel-heading">Background</h2>
+      <p class="panel-intro">The world of Hogarth, and the conflict that shaped it.</p>
+
+      <div class="accordion">
+        <details class="accordion-item" open>
+          <summary>The Conflict<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Set against the backdrop of the 1950s, the wizarding world finds itself at odds with the muggle world &mdash; a growing conflict between the two that has pushed magic further into hiding.</p>
+            <p>Wizards have been vanishing at an alarming rate, their disappearances tied to the rising tension between the two worlds.</p>
+            <span class="tag">More information coming soon</span>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>The Vanishings<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <span class="tag">More information coming soon</span>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Hogarth Academy<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <span class="tag">More information coming soon</span>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ---------- SPELLS ---------- -->
+    <section class="panel" id="spells" role="tabpanel">
+      <h2 class="panel-heading">Spells</h2>
+      <p class="panel-intro">Spells are grouped by category &mdash; tap a category to browse what's inside.</p>
+
+      <div class="accordion">
+
+        <!-- Utility — Grey -->
+        <details class="spell-category" style="--accent:#8a8a8a" open>
+          <summary><span class="dot"></span>Utility<span class="count">4 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Clostramora</div>
+                <p class="spell-desc">Unlocks doors, chests and other objects with locks.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Claresco</div>
+                <p class="spell-desc">Reveals hidden objects and enemies.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Oblitera</div>
+                <p class="spell-desc">Erases a specific memory from an individual's mind.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Inlusio</div>
+                <p class="spell-desc">Makes the user camouflage with their surroundings.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Essential — Blue -->
+        <details class="spell-category" style="--accent:#3b6ea5">
+          <summary><span class="dot"></span>Essential<span class="count">4 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Inlumino</div>
+                <p class="spell-desc">Produces light from the tip of the wand.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Nyx</div>
+                <p class="spell-desc">Counter-spell for Lumos.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Defensio</div>
+                <p class="spell-desc">Creates a shield that protects the user from incoming spells and other attacks.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation, Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Basic Cast</div>
+                <p class="spell-desc">Deals a small amount of damage, used to hit objects and enemies.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Control — Yellow -->
+        <details class="spell-category" style="--accent:#b8912f">
+          <summary><span class="dot"></span>Control<span class="count">6 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Vectatio</div>
+                <p class="spell-desc">Allows an object to be moved around in the air.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Volatilis</div>
+                <p class="spell-desc">Levitates an object or an enemy.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Transformare</div>
+                <p class="spell-desc">Transforms objects and enemies into random objects you envision.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Glacio</div>
+                <p class="spell-desc">Freezes enemies, slowing or halting their movement.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Gradarius Momentum</div>
+                <p class="spell-desc">Slows down an object or enemy for a short amount of time.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Petrificare Totus</div>
+                <p class="spell-desc">Petrifies enemies, binding their full bodies.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Jinx</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Force — Purple -->
+        <details class="spell-category" style="--accent:#6b4e8e">
+          <summary><span class="dot"></span>Force<span class="count">4 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Detrudo</div>
+                <p class="spell-desc">Pushes objects or enemies away from the user.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Arcessio</div>
+                <p class="spell-desc">Summons an object, bringing it closer to you.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Charm</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Descendere</div>
+                <p class="spell-desc">Slams an object or enemy downwards with great force.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Volubilis</div>
+                <p class="spell-desc">Flips a subject or enemy upwards and backwards.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Jinx</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Transfiguration — Aqua -->
+        <details class="spell-category" style="--accent:#4f9e8c">
+          <summary><span class="dot"></span>Transfiguration<span class="count">3 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Transverto</div>
+                <p class="spell-desc">Changes the colour and form of conjured objects, such as robes.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Vanesco</div>
+                <p class="spell-desc">Causes inanimate and animate objects to vanish.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Ecficio</div>
+                <p class="spell-desc">Conjures an object into existence. Requires a spellcraft and replacement, e.g. Moonstone.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Damage — Red -->
+        <details class="spell-category" style="--accent:#a13a2f">
+          <summary><span class="dot"></span>Damage<span class="count">6 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Incendo</div>
+                <p class="spell-desc">Sets objects and enemies on fire.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Stupefy</div>
+                <p class="spell-desc">Stuns enemies, causing them to deal more damage when hit with follow-up spells.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Expelloarmis</div>
+                <p class="spell-desc">Disarms enemies that are holding wands and other weapons.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Interitus</div>
+                <p class="spell-desc">Creates an explosion at the targeted area.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Conflagro</div>
+                <p class="spell-desc">Produces sharp bursts of fire to damage enemies.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Long</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Lacero</div>
+                <p class="spell-desc">Slashes objects and enemies with a blade of magic energy.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Long</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Dark Magic | Trio of Maleficium — Green -->
+        <details class="spell-category" style="--accent:#4a7c3f">
+          <summary><span class="dot"></span>Dark Magic &mdash; Trio of Maleficium<span class="count">3 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Imperium</div>
+                <p class="spell-desc">Controls the actions of the user's victim against their will.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Curse</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Crucia<span class="spell-alt">the Cruciamentum Curse</span></div>
+                <p class="spell-desc">Inflicts excruciating pain on the user's victim, unblockable by any protection charm.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation</b></span>
+                  <span>Type &mdash; <b>Curse</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Sicarius Anima<span class="spell-alt">"Assassin of the Soul"</span></div>
+                <p class="spell-desc">Kills any living being instantly by snatching their souls. Only the pure may move on into the afterlife &mdash; others are left to roam as ghosts.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Incantation, Non-Verbal (only for the powerful)</b></span>
+                  <span>Type &mdash; <b>Curse</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Ancient Magick & Unregistered Spells — Dark Red -->
+        <details class="spell-category" style="--accent:#6e1f1f">
+          <summary><span class="dot"></span>Ancient Magick &amp; Unregistered Spells<span class="count">4 spells</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Nepenthe</div>
+                <p class="spell-desc">Created by Isadora Morganach, c. 15th Century. Uses ancient magick to extract mental and physical pain from an individual. It corrupts ancient magick and must be contained &mdash; while this magick can empower those who absorb it, containing too much corrupted ancient magick harms the body and has lethal consequences for those who cannot adapt to its power.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+                <p class="spell-side">Side effects: overuse drains all emotion from the target.</p>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Reticeo</div>
+                <p class="spell-desc">Silences its victim, taking away their ability to make any noise.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Recitare</div>
+                <p class="spell-desc">The counter-spell for Reticeo.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short</b></span>
+                </div>
+              </div>
+
+              <div class="spell-card">
+                <div class="spell-name">Aviscero</div>
+                <p class="spell-desc">Created by Xylina Morganach, late 1940s. Mangles objects and enemies by slashing them with multiple blades of magic energy.</p>
+                <div class="spell-meta">
+                  <span>Casting &mdash; <b>Non-Verbal</b></span>
+                  <span>Type &mdash; <b>Spell</b></span>
+                  <span>Range &mdash; <b>Short, Long</b></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+        <!-- Enchantments & Rituals -->
+        <details class="spell-category" style="--accent:#8a6d3b">
+          <summary><span class="dot"></span>Enchantments &amp; Rituals<span class="count">1 ritual</span></summary>
+          <div class="spell-category-body">
+            <div class="spell-list">
+
+              <div class="spell-card">
+                <div class="spell-name">Vivit Post Funera Virtus</div>
+                <p class="spell-desc">Using corrupted ancient magick, this ritual revives a recently deceased individual, reanimating them as a Vampire.</p>
+                <div class="spell-meta">
+                  <span>Type &mdash; <b>Ritual</b></span>
+                </div>
+                <ol class="ritual-steps">
+                  <li>The subject to be turned must have been deceased for no more than 24 hours before the ritual.</li>
+                  <li>Place the subject in full view of the moonlight.</li>
+                  <li>Drops of Unicorn blood, the number corresponding to the subject's age, must be dripped down their throat while chanting the incantation "Vivit post funera virtus. Redde in hoc corpus animam." for each drop.</li>
+                  <li>The incantation must finish the moment midnight strikes.</li>
+                  <li>The subject will then awaken and morph into their new Vampire form.</li>
+                </ol>
+                <p class="spell-side">"Vivit post funera virtus" means "Virtue lives on after death." The creator had intended for the subject to return unchanged &mdash; but the ritual did not go as planned, and corrupt blood was formed instead. Some choose not to tweak the ritual for a better outcome, because it works, and there's a price to pay when playing with death.</p>
+              </div>
+
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ---------- CLASSES ---------- -->
+    <section class="panel" id="classes" role="tabpanel">
+      <h2 class="panel-heading">Classes</h2>
+      <p class="panel-intro">The subjects taught within the halls of Hogarth Academy.</p>
+
+      <p class="placeholder">Class information is being written into the curriculum. Check back soon.</p>
+    </section>
+
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

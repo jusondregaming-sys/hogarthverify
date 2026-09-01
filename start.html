@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start — Hogarth Institute of Witchery</title>
+<link rel="stylesheet" href="grain.css">
+<link rel="stylesheet" href="fonts.css">
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #f8f3e9;
+    color: #1b0c08;
+    position: relative;
+  }
+
+  /* ---------- nav (shared with index / lore / store) ---------- */
+
+  nav.top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: 1.6rem 1rem;
+    z-index: 10;
+  }
+
+  nav a {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    position: relative;
+    padding-left: 0;
+    transition: padding-left 0.2s ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    opacity: 0.6;
+  }
+
+  nav a.active {
+    padding-left: 1.1em;
+  }
+
+  nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(0.3em - 1px);
+    width: 0.7em;
+    height: 0.7em;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .socials {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    top: 1.7rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+  }
+
+  .socials a {
+    color: #1b0c08;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+  }
+
+  .socials a:hover {
+    opacity: 1;
+  }
+
+  .socials svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+    fill: currentColor;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    padding: clamp(8rem, 16vh, 11rem) 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1.start-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #1b0c08;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-size: clamp(2.8rem, 10vw, 6.5rem);
+  }
+
+  .start-sub {
+    margin-top: 1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    letter-spacing: 0.02em;
+    color: #1b0c08;
+    opacity: 0.7;
+    max-width: 46ch;
+  }
+
+  /* ---------- content ---------- */
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.75rem 6rem;
+  }
+
+  .panel-heading {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    color: #1b0c08;
+    margin-bottom: 0.8rem;
+  }
+
+  .panel-intro {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #1b0c08;
+    opacity: 0.75;
+  }
+
+  /* ---------- step blocks ---------- */
+
+  .step {
+    border-top: 1px solid rgba(27, 12, 8, 0.12);
+    padding: 2.2rem 0;
+    display: flex;
+    gap: 1.4rem;
+  }
+
+  .step:last-child {
+    border-bottom: 1px solid rgba(27, 12, 8, 0.12);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    font-size: 1.6rem;
+    color: #1b0c08;
+    opacity: 0.35;
+    width: 2rem;
+  }
+
+  .step-body {
+    flex: 1;
+  }
+
+  .step-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.15rem;
+    color: #1b0c08;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #1b0c08;
+    opacity: 0.75;
+    max-width: 48ch;
+  }
+
+  /* buttons — matched to the nav / tab language of the site */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f8f3e9;
+    background: #1b0c08;
+    border: none;
+    padding: 0.85rem 1.4rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  .btn.secondary {
+    background: none;
+    color: #1b0c08;
+    border: 1px solid rgba(27, 12, 8, 0.35);
+  }
+
+  .btn[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .btn svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+    fill: currentColor;
+  }
+
+  /* status line under verification step */
+
+  .status {
+    margin-top: 0.9rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  .status .dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #a13a2f;
+    margin-right: 0.4em;
+    vertical-align: middle;
+  }
+
+  .note {
+    margin-top: 1.4rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #1b0c08;
+    opacity: 0.55;
+    max-width: 48ch;
+  }
+
+  /* ---------- form placeholder ---------- */
+
+  .form-wrap {
+    margin-top: 2.6rem;
+    border: 1px solid rgba(27, 12, 8, 0.18);
+    background: rgba(27, 12, 8, 0.03);
+    padding: 2rem 1.9rem;
+    position: relative;
+  }
+
+  .form-wrap.locked {
+    opacity: 0.45;
+  }
+
+  .form-wrap.locked::after {
+    content: 'Verify your Discord to unlock';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    background: rgba(248, 243, 233, 0.6);
+  }
+
+  .field {
+    margin-bottom: 1.3rem;
+  }
+
+  .field:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .field label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.6;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: #1b0c08;
+    background: #f8f3e9;
+    border: 1px solid rgba(27, 12, 8, 0.25);
+    padding: 0.7rem 0.8rem;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 5rem;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .field-row .field {
+    flex: 1;
+  }
+
+  .form-footnote {
+    margin-top: 1.2rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.76rem;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 520px) {
+    nav.top {
+      gap: 1.2rem;
+      padding: 1.1rem 0.75rem;
+    }
+    .socials {
+      top: 1.2rem;
+    }
+    .step {
+      gap: 1rem;
+    }
+    .field-row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+  <nav class="top">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="start.html" class="active">Start</a>
+    <a href="store.html">Store</a>
+  </nav>
+
+  <div class="socials" aria-label="Social links">
+    <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@cxydreprojects" aria-label="TikTok" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="22 7 22 11 20 11 20 10 18 10 18 9 17 9 17 19 16 19 16 20 15 20 15 21 14 21 14 22 13 22 13 23 7 23 7 22 6 22 6 21 5 21 5 20 4 20 4 19 3 19 3 18 2 18 2 14 3 14 3 12 4 12 4 11 5 11 5 10 6 10 6 9 10 9 10 13 8 13 8 14 7 14 7 17 8 17 8 18 11 18 11 17 12 17 12 1 16 1 16 2 17 2 17 4 18 4 18 5 19 5 19 6 20 6 20 7 22 7"/></svg>
+    </a>
+    <a href="https://www.youtube.com/channel/UCnlTNtY1HhAfIJjWrIQT5kw" aria-label="YouTube" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,7v-2h-2v-1H4v1h-2v2h-1v10h1v2h2v1h16v-1h2v-2h1V7h-1Zm-10,8h-2v-6h2v1h2v1h2v2h-2v1h-2v1Z"/></svg>
+    </a>
+    <a href="https://discord.gg/Mt8sCFcHVF" aria-label="Discord" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
+    </a>
+  </div>
+
+  <div class="hero">
+    <h1 class="start-title">Start Here</h1>
+    <p class="start-sub">verify your Discord, confirm your rank, and register your original character</p>
+  </div>
+
+  <main>
+
+    <p class="panel-intro">Character creation is tied to the Hogarth Discord server. Complete the two steps below before the registration form unlocks.</p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-title">Verify Discord</div>
+        <div class="step-desc">Connect your Discord account so we can confirm you're a member of the Hogarth Institute server and check your current rank.</div>
+        <a class="btn" id="verify-btn" href="/api/discord/login">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
+          Verify with Discord
+        </a>
+        <div class="status" id="verify-status"><span class="dot"></span>Not verified</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-title">Rank Check</div>
+        <div class="step-desc">Once verified, your server rank is pulled automatically. Some character slots or types may be limited to certain ranks.</div>
+        <div class="status" id="rank-status"><span class="dot"></span>Awaiting verification</div>
+      </div>
+    </div>
+
+    <div class="form-wrap locked" id="form-wrap">
+      <div class="panel-heading" style="font-size:1.3rem; margin-bottom:1.4rem;">Register a Character</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="char-name">Character Name</label>
+          <input type="text" id="char-name" disabled placeholder="e.g. Wren Ashcombe">
+        </div>
+        <div class="field">
+          <label for="char-age">Age</label>
+          <input type="text" id="char-age" disabled placeholder="e.g. 16">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="char-house">House / Affiliation</label>
+        <select id="char-house" disabled>
+          <option>Select one</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="char-bio">Short Bio</label>
+        <textarea id="char-bio" disabled placeholder="A few sentences on who they are..."></textarea>
+      </div>
+
+      <button class="btn" id="submit-btn" type="button" disabled>Submit Character</button>
+      <p class="form-footnote">This form is a placeholder. It will be replaced with an embedded Google Form.</p>
+    </div>
+
+    <p class="note">Discord verification and rank checks require a small server-side connection to the Discord API (an OAuth login plus a bot that can read your roles in the Hogarth server) — this can't be done from the static page alone. The buttons above are placeholders until that connection is built.</p>
+
+  </main>
+
+  <script>
+    const verifyStatus = document.getElementById('verify-status');
+    const rankStatus = document.getElementById('rank-status');
+    const verifyBtn = document.getElementById('verify-btn');
+    const formWrap = document.getElementById('form-wrap');
+    const submitBtn = document.getElementById('submit-btn');
+    const formFields = formWrap.querySelectorAll('input, select, textarea');
+
+    function setStatus(el, text, ok) {
+      el.innerHTML = `<span class="dot" style="background:${ok ? '#4a7a3f' : '#a13a2f'};"></span>${text}`;
+    }
+
+    function unlockForm(rank, slots) {
+      formWrap.classList.remove('locked');
+      formFields.forEach((f) => (f.disabled = false));
+      submitBtn.disabled = false;
+      const slotText = slots === 1 ? '1 character' : `${slots} characters`;
+      setStatus(rankStatus, `Rank confirmed: ${rank} — you can register ${slotText}`, true);
+    }
+
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/discord/status');
+        const data = await res.json();
+
+        if (data.verified) {
+          setStatus(verifyStatus, `Verified as ${data.username}`, true);
+          verifyBtn.textContent = 'Re-verify with Discord';
+          unlockForm(data.rank, data.slots);
+        } else {
+          setStatus(verifyStatus, 'Not verified', false);
+        }
+      } catch (err) {
+        console.error('Could not reach verification service:', err);
+      }
+    }
+
+    // Surface the result of a just-completed OAuth redirect, if any.
+    const params = new URLSearchParams(window.location.search);
+    const verifyResult = params.get('verify');
+    if (verifyResult === 'not_member') {
+      setStatus(verifyStatus, "Discord verified, but you're not in the Hogarth server", false);
+    } else if (verifyResult === 'denied') {
+      setStatus(verifyStatus, 'Discord authorization was cancelled', false);
+    } else if (verifyResult === 'error') {
+      setStatus(verifyStatus, 'Something went wrong — try again', false);
+    }
+    if (verifyResult) {
+      // Clean the query string so refreshing doesn't re-trigger the message.
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+
+    checkStatus();
+  </script>
+
+</body>
+</html>

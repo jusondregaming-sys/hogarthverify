@@ -1,0 +1,56 @@
+/*
+  grain.css — global film-grain overlay
+  ----------------------------------------------------
+  Drop this file next to any HTML page and link it:
+
+    <link rel="stylesheet" href="grain.css">
+
+  That's it — no markup changes needed. It paints a
+  subtle animated noise texture over the whole viewport
+  on every page that includes it, sitting above your
+  content but ignoring clicks/taps.
+
+  Tweak the three variables below to adjust the look
+  per-page if you ever want a stronger/weaker grain.
+*/
+
+:root {
+  --grain-opacity: 0.22;   /* how visible the noise is, 0–1 */
+  --grain-size: 140px;     /* tile size of the noise pattern */
+  --grain-blend: multiply; /* blend mode: multiply, overlay, soft-light... */
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: var(--grain-size);
+  animation: grain-shift 0.9s steps(8) infinite;
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0%, 0%); }
+  12%  { transform: translate(-8%, 4%); }
+  25%  { transform: translate(6%, -9%); }
+  37%  { transform: translate(-4%, 7%); }
+  50%  { transform: translate(9%, 2%); }
+  62%  { transform: translate(-6%, -6%); }
+  75%  { transform: translate(3%, 9%); }
+  87%  { transform: translate(-9%, -3%); }
+  100% { transform: translate(0%, 0%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}

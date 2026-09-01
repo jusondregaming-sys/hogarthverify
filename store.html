@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store — Hogarth Institute of Witchery</title>
+<link rel="stylesheet" href="grain.css">
+<link rel="stylesheet" href="fonts.css">
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #f8f3e9;
+    color: #1b0c08;
+    position: relative;
+  }
+
+  /* ---------- nav (shared with index) ---------- */
+
+  nav.top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: 1.6rem 1rem;
+    z-index: 10;
+  }
+
+  nav a {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    position: relative;
+    padding-left: 0;
+    transition: padding-left 0.2s ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    opacity: 0.6;
+  }
+
+  nav a.active {
+    padding-left: 1.1em;
+  }
+
+  nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(0.3em - 1px);
+    width: 0.7em;
+    height: 0.7em;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='23 8 23 10 22 10 22 11 21 11 21 12 20 12 20 13 19 13 19 14 18 14 18 19 19 19 19 23 17 23 17 22 15 22 15 21 13 21 13 20 11 20 11 21 9 21 9 22 7 22 7 23 5 23 5 19 6 19 6 14 5 14 5 13 4 13 4 12 3 12 3 11 2 11 2 10 1 10 1 8 8 8 8 6 9 6 9 4 10 4 10 2 11 2 11 1 13 1 13 2 14 2 14 4 15 4 15 6 16 6 16 8 23 8'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .socials {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    top: 1.7rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+  }
+
+  .socials a {
+    color: #1b0c08;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+  }
+
+  .socials a:hover {
+    opacity: 1;
+  }
+
+  .socials svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+    fill: currentColor;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    padding: clamp(8rem, 16vh, 11rem) 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1.store-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #1b0c08;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-size: clamp(2.8rem, 10vw, 6.5rem);
+  }
+
+  .store-sub {
+    margin-top: 1rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+    letter-spacing: 0.02em;
+    color: #1b0c08;
+    opacity: 0.7;
+  }
+
+  /* ---------- tabs ---------- */
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    margin: 2.75rem 0 0;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.15);
+  }
+
+  .tab {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0;
+    position: relative;
+  }
+
+  .tab:hover {
+    opacity: 0.75;
+  }
+
+  .tab.active {
+    opacity: 1;
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.13rem;
+    height: 1px;
+    background: #1b0c08;
+  }
+
+  /* ---------- content ---------- */
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.75rem 6rem;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  .rank {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 1.9rem 0;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.12);
+  }
+
+  .rank:first-child {
+    padding-top: 0;
+  }
+
+  .rank:last-child {
+    border-bottom: none;
+  }
+
+  .rank-left {
+    flex: 1;
+  }
+
+  .rank-name {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    color: #1b0c08;
+  }
+
+  .rank-desc {
+    margin-top: 0.5rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #1b0c08;
+    opacity: 0.75;
+    max-width: 42ch;
+  }
+
+  .rank-price {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: #1b0c08;
+    opacity: 0.55;
+    white-space: nowrap;
+  }
+
+  .placeholder {
+    padding: 3rem 0;
+    text-align: center;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: #1b0c08;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 520px) {
+    nav.top {
+      gap: 1.2rem;
+      padding: 1.1rem 0.75rem;
+    }
+    .socials {
+      top: 1.2rem;
+    }
+    .tabs {
+      gap: 1.4rem;
+    }
+    .rank {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+  <nav class="top">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="start.html">Start</a>
+    <a href="store.html" class="active">Store</a>
+  </nav>
+
+  <div class="socials" aria-label="Social links">
+    <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@cxydreprojects" aria-label="TikTok" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="22 7 22 11 20 11 20 10 18 10 18 9 17 9 17 19 16 19 16 20 15 20 15 21 14 21 14 22 13 22 13 23 7 23 7 22 6 22 6 21 5 21 5 20 4 20 4 19 3 19 3 18 2 18 2 14 3 14 3 12 4 12 4 11 5 11 5 10 6 10 6 9 10 9 10 13 8 13 8 14 7 14 7 17 8 17 8 18 11 18 11 17 12 17 12 1 16 1 16 2 17 2 17 4 18 4 18 5 19 5 19 6 20 6 20 7 22 7"/></svg>
+    </a>
+    <a href="https://www.youtube.com/channel/UCnlTNtY1HhAfIJjWrIQT5kw" aria-label="YouTube" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,7v-2h-2v-1H4v1h-2v2h-1v10h1v2h2v1h16v-1h2v-2h1V7h-1Zm-10,8h-2v-6h2v1h2v1h2v2h-2v1h-2v1Z"/></svg>
+    </a>
+    <a href="https://discord.gg/Mt8sCFcHVF" aria-label="Discord" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
+    </a>
+  </div>
+
+  <div class="hero">
+    <h1 class="store-title">Store Front</h1>
+    <p class="store-sub">explore ranks, cosmetics, and companions for your characters</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" aria-selected="true" data-panel="ranks">Ranks</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="cosmetics">Cosmetics</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="pets">Pets</button>
+  </div>
+
+  <main>
+
+    <section class="panel active" id="ranks" role="tabpanel">
+
+      <div class="rank">
+        <div class="rank-left">
+          <div class="rank-name">Early Supporter</div>
+          <div class="rank-desc">A mark of thanks for those who joined before the gates opened. A modest name flair and a place in the founding roster.</div>
+        </div>
+        <div class="rank-price">£4.99 / permanent</div>
+      </div>
+
+      <div class="rank">
+        <div class="rank-left">
+          <div class="rank-name">VIP</div>
+          <div class="rank-desc">Priority queue on busy nights, a private chat channel, and access to the VIP cosmetics shelf.</div>
+        </div>
+        <div class="rank-price">£5.99 / permanent</div>
+      </div>
+
+      <div class="rank">
+        <div class="rank-left">
+          <div class="rank-name">VIP+</div>
+          <div class="rank-desc">Everything in VIP, plus extra homes, an enchanted trail, and first look at new plugin features.</div>
+        </div>
+        <div class="rank-price">£12.99 / mo</div>
+      </div>
+
+    </section>
+
+    <section class="panel" id="cosmetics" role="tabpanel">
+      <p class="placeholder">Cosmetics are being enchanted. Check back soon.</p>
+    </section>
+
+    <section class="panel" id="pets" role="tabpanel">
+      <p class="placeholder">Companions are still hatching. Check back soon.</p>
+    </section>
+
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
