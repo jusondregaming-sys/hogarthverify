@@ -3,6 +3,11 @@
 // Creates a character for the verified user, if they haven't used all
 // their slots yet. Slot count comes from the session (set at Discord
 // verification time), never from the client.
+//
+// New characters always start as status = 'pending' — they don't show up
+// in api/applications/list until reviewed, and they still count against
+// the applicant's slot usage so people can't queue up unlimited pending
+// applications.
 
 const { readSession } = require('../discord/_lib');
 const { sql, ensureSchema } = require('../_shared/db');
@@ -37,15 +42,16 @@ module.exports = async (req, res) => {
     }
 
     const { rows } = await sql`
-      INSERT INTO characters (user_discord_id, name, age, house, bio)
+      INSERT INTO characters (user_discord_id, name, age, house, bio, status)
       VALUES (
         ${session.discordId},
         ${String(name).trim()},
         ${age ? String(age).trim() : null},
         ${house ? String(house).trim() : null},
-        ${bio ? String(bio).trim() : null}
+        ${bio ? String(bio).trim() : null},
+        'pending'
       )
-      RETURNING id, name, age, house, bio, created_at;
+      RETURNING id, name, age, house, bio, status, created_at;
     `;
 
     res.status(201).json({ character: rows[0] });

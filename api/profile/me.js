@@ -27,10 +27,16 @@ module.exports = async (req, res) => {
     `;
 
     const { rows: characters } = await sql`
-      SELECT id, name, age, house, bio, created_at
+      SELECT id, name, age, house, bio, status, created_at
       FROM characters
       WHERE user_discord_id = ${session.discordId}
       ORDER BY created_at ASC;
+    `;
+
+    const { rows: unreadRows } = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM inbox_messages
+      WHERE user_discord_id = ${session.discordId} AND is_read = false;
     `;
 
     res.status(200).json({
@@ -41,6 +47,7 @@ module.exports = async (req, res) => {
       slots: session.slots,
       slotsUsed: characters.length,
       characters,
+      unreadInbox: unreadRows[0].count,
     });
   } catch (err) {
     console.error('profile/me error:', err);

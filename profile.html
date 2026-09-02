@@ -380,6 +380,20 @@
     display: block;
   }
 
+  .tab-badge {
+    display: inline-block;
+    margin-left: 0.4em;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+    color: #f8f3e9;
+    background: #a13a2f;
+    border-radius: 999px;
+    padding: 0.08rem 0.42rem;
+    vertical-align: 1px;
+  }
+
   .slots-note {
     font-family: 'Optima', Georgia, serif;
     font-weight: 500;
@@ -429,6 +443,28 @@
     letter-spacing: 0.02em;
     font-size: 1.15rem;
     color: #1b0c08;
+    padding-right: 4rem;
+  }
+
+  .status-badge {
+    display: inline-block;
+    margin-top: 0.55rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.24rem 0.6rem;
+  }
+
+  .status-badge.approved {
+    color: #f8f3e9;
+    background: #4a7a3f;
+  }
+
+  .status-badge.pending {
+    color: #1b0c08;
+    background: rgba(27, 12, 8, 0.1);
   }
 
   .character-meta {
@@ -462,25 +498,189 @@
     padding: 1.2rem 0;
   }
 
-  /* ---------- placeholder systems ---------- */
+  /* ---------- inbox ---------- */
 
-  .stub-grid {
+  .inbox-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.9rem;
-    margin-bottom: 2.8rem;
+    gap: 1rem;
   }
 
-  .stub-card {
-    border: 1px dashed rgba(27, 12, 8, 0.2);
-    padding: 1.3rem 1rem;
-    text-align: center;
+  .inbox-item {
+    border: 1px solid rgba(27, 12, 8, 0.15);
+    padding: 1.3rem 1.5rem;
+  }
+
+  .inbox-item.unread {
+    border-color: rgba(27, 12, 8, 0.35);
+    background: rgba(27, 12, 8, 0.03);
+  }
+
+  .inbox-item-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .inbox-item-name {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+    color: #1b0c08;
+  }
+
+  .inbox-item-date {
     font-family: 'Optima', Georgia, serif;
     font-weight: 500;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  .inbox-item-message {
+    margin-top: 0.7rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: #1b0c08;
+    opacity: 0.8;
+  }
+
+  .inbox-item-reviewer {
+    margin-top: 0.6rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.4;
+  }
+
+  /* ---------- applications (Overseer review queue) ---------- */
+
+  .application-card {
+    border: 1px solid rgba(27, 12, 8, 0.15);
+    padding: 1.6rem 1.7rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .application-applicant {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.1);
+  }
+
+  .application-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(27, 12, 8, 0.1);
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .application-applicant-name {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.8rem;
     letter-spacing: 0.03em;
     color: #1b0c08;
-    opacity: 0.45;
+  }
+
+  .application-applicant-rank {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: #1b0c08;
+    opacity: 0.55;
+  }
+
+  .application-char-name {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 1.2rem;
+    color: #1b0c08;
+  }
+
+  .application-char-meta {
+    margin-top: 0.3rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  .application-char-bio {
+    margin-top: 0.7rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: #1b0c08;
+    opacity: 0.75;
+  }
+
+  .application-review {
+    margin-top: 1.4rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid rgba(27, 12, 8, 0.1);
+  }
+
+  .application-message-input {
+    width: 100%;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: #1b0c08;
+    background: #f8f3e9;
+    border: 1px solid rgba(27, 12, 8, 0.25);
+    padding: 0.7rem 0.8rem;
+    resize: vertical;
+    min-height: 4.2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .application-actions {
+    display: flex;
+    gap: 0.7rem;
+  }
+
+  .btn.approve {
+    background: #4a7a3f;
+    color: #f8f3e9;
+  }
+
+  .btn.approve:hover {
+    opacity: 0.85;
+  }
+
+  .application-review-msg {
+    margin-top: 0.8rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: #a13a2f;
+    display: none;
+  }
+
+  .application-review-msg.show {
+    display: block;
   }
 
   /* ---------- create character form ---------- */
@@ -624,10 +824,11 @@
         </div>
       </div>
 
-      <div class="tabs" role="tablist">
+      <div class="tabs" role="tablist" id="main-tabs">
         <button class="tab active" role="tab" aria-selected="true" data-panel="tab-characters">Characters</button>
-        <button class="tab" role="tab" aria-selected="false" data-panel="tab-pets-cosmetics">Pets &amp; Cosmetics</button>
-        <button class="tab" role="tab" aria-selected="false" data-panel="tab-achievements-quests">Achievements &amp; Quests</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="tab-create">Create</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="tab-inbox">Inbox<span class="tab-badge" id="inbox-badge" style="display:none;"></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="tab-applications" id="applications-tab" style="display:none;">Applications<span class="tab-badge" id="applications-badge" style="display:none;"></span></button>
       </div>
 
       <section class="tab-panel active" id="tab-characters" role="tabpanel">
@@ -636,7 +837,12 @@
         <div class="slots-note" id="slots-note">—</div>
         <div class="character-grid" id="character-grid"></div>
 
+      </section>
+
+      <section class="tab-panel" id="tab-create" role="tabpanel">
+
         <div class="section-heading" id="create-heading">Create a Character</div>
+        <div class="slots-note" id="create-slots-note">—</div>
         <div class="form-wrap">
           <div class="field">
             <label for="char-name">Character Name</label>
@@ -656,26 +862,21 @@
             <label for="char-bio">Short Bio</label>
             <textarea id="char-bio" placeholder="A few sentences on who they are..."></textarea>
           </div>
-          <button class="btn" id="submit-btn" type="button">Create Character</button>
+          <button class="btn" id="submit-btn" type="button">Submit Application</button>
           <p class="form-msg" id="form-msg"></p>
         </div>
+        <p class="empty-note" id="create-full-note" style="display:none;">You've used all your character slots.</p>
 
       </section>
 
-      <section class="tab-panel" id="tab-pets-cosmetics" role="tabpanel">
-        <div class="section-heading">Pets &amp; Cosmetics</div>
-        <div class="stub-grid">
-          <div class="stub-card">Pets coming soon</div>
-          <div class="stub-card">Cosmetics coming soon</div>
-        </div>
+      <section class="tab-panel" id="tab-inbox" role="tabpanel">
+        <div class="section-heading">Inbox</div>
+        <div class="inbox-list" id="inbox-list"><p class="empty-note">Loading…</p></div>
       </section>
 
-      <section class="tab-panel" id="tab-achievements-quests" role="tabpanel">
-        <div class="section-heading">Achievements &amp; Quests</div>
-        <div class="stub-grid">
-          <div class="stub-card">Achievements coming soon</div>
-          <div class="stub-card">Quests coming soon</div>
-        </div>
+      <section class="tab-panel" id="tab-applications" role="tabpanel">
+        <div class="section-heading">Pending Applications</div>
+        <div id="applications-list"><p class="empty-note">Loading…</p></div>
       </section>
 
     </div>
@@ -705,12 +906,20 @@
     const slotsNote = document.getElementById('slots-note');
     const grid = document.getElementById('character-grid');
     const createHeading = document.getElementById('create-heading');
+    const createSlotsNote = document.getElementById('create-slots-note');
+    const createFullNote = document.getElementById('create-full-note');
     const formWrap = document.querySelector('.form-wrap');
     const submitBtn = document.getElementById('submit-btn');
     const formMsg = document.getElementById('form-msg');
+    const inboxBadge = document.getElementById('inbox-badge');
+    const inboxList = document.getElementById('inbox-list');
+    const applicationsTab = document.getElementById('applications-tab');
+    const applicationsBadge = document.getElementById('applications-badge');
+    const applicationsList = document.getElementById('applications-list');
 
     let currentSlots = 0; // null = unlimited
     let currentUsed = 0;
+    let isOverseer = false;
 
     // ---------- tabs ----------
     document.querySelectorAll('.tab').forEach((tab) => {
@@ -724,6 +933,11 @@
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
         document.getElementById(tab.dataset.panel).classList.add('active');
+
+        // Inbox and Applications are loaded on demand, and refreshed every
+        // time the tab is opened so reviewers/applicants see current data.
+        if (tab.dataset.panel === 'tab-inbox') loadInbox();
+        if (tab.dataset.panel === 'tab-applications' && isOverseer) loadApplications();
       });
     });
 
@@ -760,11 +974,15 @@
         const card = document.createElement('div');
         card.className = 'character-card';
         const meta = [c.house, c.age ? `Age ${c.age}` : null].filter(Boolean).join(' · ');
+        const badge = c.status === 'approved'
+          ? '<span class="status-badge approved">Approved</span>'
+          : '<span class="status-badge pending">Pending Review</span>';
         card.innerHTML = `
           <button class="character-delete" data-id="${c.id}" data-name="${escapeHtml(c.name)}" type="button">Delete</button>
-          <div class="character-name" style="padding-right:4rem;">${escapeHtml(c.name)}</div>
+          <div class="character-name">${escapeHtml(c.name)}</div>
           ${meta ? `<div class="character-meta">${escapeHtml(meta)}</div>` : ''}
           ${c.bio ? `<div class="character-bio">${escapeHtml(c.bio)}</div>` : ''}
+          <div>${badge}</div>
         `;
         grid.appendChild(card);
       });
@@ -778,18 +996,24 @@
 
     function updateSlotUI() {
       if (currentSlots === null) {
-        slotsNote.textContent = `${currentUsed} character${currentUsed === 1 ? '' : 's'} — unlimited slots`;
+        const note = `${currentUsed} character${currentUsed === 1 ? '' : 's'} — unlimited slots`;
+        slotsNote.textContent = note;
+        createSlotsNote.textContent = note;
         submitBtn.disabled = false;
         createHeading.style.display = 'block';
         formWrap.style.display = 'block';
+        createFullNote.style.display = 'none';
         return;
       }
       const slotText = currentSlots === 1 ? '1 character' : `${currentSlots} characters`;
-      slotsNote.textContent = `${currentUsed} of ${slotText} used`;
+      const note = `${currentUsed} of ${slotText} used`;
+      slotsNote.textContent = note;
+      createSlotsNote.textContent = note;
       const full = currentUsed >= currentSlots;
       submitBtn.disabled = full;
       createHeading.style.display = full ? 'none' : 'block';
       formWrap.style.display = full ? 'none' : 'block';
+      createFullNote.style.display = full ? 'block' : 'none';
     }
 
     // ---------- delete confirmation modal ----------
@@ -911,6 +1135,31 @@
 
       renderCharacters(data.characters);
       updateSlotUI();
+
+      isOverseer = data.rank === 'Overseer';
+      applicationsTab.style.display = isOverseer ? '' : 'none';
+      if (isOverseer) {
+        loadApplications();
+      } else if (applicationsTab.classList.contains('active')) {
+        // Rank changed away from Overseer mid-session — fall back to the
+        // Characters tab rather than leaving a hidden tab "active".
+        applicationsTab.classList.remove('active');
+        applicationsTab.setAttribute('aria-selected', 'false');
+        document.getElementById('tab-applications').classList.remove('active');
+        document.querySelector('.tab[data-panel="tab-characters"]').classList.add('active');
+        document.getElementById('tab-characters').classList.add('active');
+      }
+
+      updateInboxBadge(data.unreadInbox || 0);
+    }
+
+    function updateInboxBadge(count) {
+      if (count > 0) {
+        inboxBadge.textContent = count;
+        inboxBadge.style.display = 'inline-block';
+      } else {
+        inboxBadge.style.display = 'none';
+      }
     }
 
     submitBtn.addEventListener('click', async () => {
@@ -949,7 +1198,7 @@
         document.getElementById('char-age').value = '';
         document.getElementById('char-house').value = '';
         document.getElementById('char-bio').value = '';
-        showMsg('Character created!', true);
+        showMsg('Application submitted — an Overseer will review it soon.', true);
 
         currentUsed += 1;
         await loadProfile();
@@ -957,6 +1206,155 @@
         console.error(err);
         showMsg('Something went wrong — try again.', false);
         submitBtn.disabled = false;
+      }
+    });
+
+    // ---------- inbox ----------
+    async function loadInbox() {
+      inboxList.innerHTML = '<p class="empty-note">Loading…</p>';
+      let res;
+      try {
+        res = await fetch('/api/inbox/list');
+      } catch (err) {
+        console.error(err);
+        inboxList.innerHTML = '<p class="empty-note">Could not reach the server — try again.</p>';
+        return;
+      }
+      if (!res.ok) {
+        inboxList.innerHTML = '<p class="empty-note">Could not load your inbox — try again.</p>';
+        return;
+      }
+      const data = await res.json();
+      renderInbox(data.messages || []);
+      // The messages just came back marked read server-side — clear the badge.
+      updateInboxBadge(0);
+    }
+
+    function renderInbox(messages) {
+      if (messages.length === 0) {
+        inboxList.innerHTML = '<p class="empty-note">Your inbox is empty.</p>';
+        return;
+      }
+      inboxList.innerHTML = '';
+      messages.forEach((m) => {
+        const item = document.createElement('div');
+        item.className = 'inbox-item' + (m.is_read ? '' : ' unread');
+        const badge = m.decision === 'approved'
+          ? '<span class="status-badge approved">Approved</span>'
+          : '<span class="status-badge pending" style="background:#a13a2f;color:#f8f3e9;">Declined</span>';
+        const date = new Date(m.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        item.innerHTML = `
+          <div class="inbox-item-top">
+            <div class="inbox-item-name">${escapeHtml(m.character_name)}</div>
+            <div class="inbox-item-date">${date}</div>
+          </div>
+          <div>${badge}</div>
+          ${m.message ? `<div class="inbox-item-message">${escapeHtml(m.message)}</div>` : ''}
+          ${m.reviewed_by ? `<div class="inbox-item-reviewer">Reviewed by ${escapeHtml(m.reviewed_by)}</div>` : ''}
+        `;
+        inboxList.appendChild(item);
+      });
+    }
+
+    // ---------- applications (Overseer review queue) ----------
+    async function loadApplications() {
+      let res;
+      try {
+        res = await fetch('/api/applications/list');
+      } catch (err) {
+        console.error(err);
+        applicationsList.innerHTML = '<p class="empty-note">Could not reach the server — try again.</p>';
+        return;
+      }
+      if (!res.ok) {
+        applicationsList.innerHTML = '<p class="empty-note">Could not load applications — try again.</p>';
+        return;
+      }
+      const data = await res.json();
+      renderApplications(data.applications || []);
+    }
+
+    function renderApplications(applications) {
+      applicationsBadge.textContent = applications.length;
+      applicationsBadge.style.display = applications.length > 0 ? 'inline-block' : 'none';
+
+      if (applications.length === 0) {
+        applicationsList.innerHTML = '<p class="empty-note">No pending applications.</p>';
+        return;
+      }
+
+      applicationsList.innerHTML = '';
+      applications.forEach((a) => {
+        const card = document.createElement('div');
+        card.className = 'application-card';
+        const meta = [a.house, a.age ? `Age ${a.age}` : null].filter(Boolean).join(' · ');
+        const avatarSrc = a.applicant_avatar
+          ? `https://cdn.discordapp.com/avatars/${a.applicant_discord_id}/${a.applicant_avatar}.png`
+          : 'https://cdn.discordapp.com/embed/avatars/0.png';
+
+        card.innerHTML = `
+          <div class="application-applicant">
+            <img class="application-avatar" src="${avatarSrc}" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';">
+            <div>
+              <div class="application-applicant-name">${escapeHtml(a.applicant_username)}</div>
+              <div class="application-applicant-rank">${escapeHtml(a.applicant_rank)}</div>
+            </div>
+          </div>
+          <div class="application-char-name">${escapeHtml(a.name)}</div>
+          ${meta ? `<div class="application-char-meta">${escapeHtml(meta)}</div>` : ''}
+          ${a.bio ? `<div class="application-char-bio">${escapeHtml(a.bio)}</div>` : ''}
+          <div class="application-review">
+            <textarea class="application-message-input" placeholder="Message to the applicant (optional, shown in their inbox)"></textarea>
+            <div class="application-actions">
+              <button class="btn approve" type="button" data-action="approve" data-id="${a.id}">Accept</button>
+              <button class="btn danger" type="button" data-action="decline" data-id="${a.id}">Decline</button>
+            </div>
+            <p class="application-review-msg"></p>
+          </div>
+        `;
+        applicationsList.appendChild(card);
+      });
+    }
+
+    applicationsList.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+
+      const card = btn.closest('.application-card');
+      const textarea = card.querySelector('.application-message-input');
+      const reviewMsg = card.querySelector('.application-review-msg');
+      const actionButtons = card.querySelectorAll('.application-actions button');
+
+      const decision = btn.dataset.action; // 'approve' | 'decline'
+      const characterId = Number(btn.dataset.id);
+
+      actionButtons.forEach((b) => (b.disabled = true));
+      reviewMsg.classList.remove('show');
+
+      try {
+        const res = await fetch('/api/applications/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ characterId, decision, message: textarea.value.trim() }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          reviewMsg.textContent = data.error === 'already_reviewed'
+            ? 'Someone already reviewed this application.'
+            : 'Something went wrong — try again.';
+          reviewMsg.classList.add('show');
+          actionButtons.forEach((b) => (b.disabled = false));
+          return;
+        }
+
+        card.remove();
+        await loadApplications();
+      } catch (err) {
+        console.error(err);
+        reviewMsg.textContent = 'Something went wrong — try again.';
+        reviewMsg.classList.add('show');
+        actionButtons.forEach((b) => (b.disabled = false));
       }
     });
 

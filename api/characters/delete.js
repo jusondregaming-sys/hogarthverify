@@ -2,6 +2,8 @@
 // POST /api/characters/delete   body: { id }
 // Deletes a character, but only if it belongs to the verified user making
 // the request — the WHERE clause checks user_discord_id, not just id.
+// Works on both pending and approved characters, so this also doubles as
+// "withdraw my application" while it's still awaiting review.
 
 const { readSession } = require('../discord/_lib');
 const { sql, ensureSchema } = require('../_shared/db');
