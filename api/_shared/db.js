@@ -18,10 +18,18 @@ async function ensureSchema() {
       discord_id TEXT PRIMARY KEY,
       username TEXT NOT NULL,
       rank TEXT NOT NULL,
-      slots INTEGER NOT NULL,
+      slots INTEGER,
       avatar TEXT,
       updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
+  `;
+
+  // slots is NULL for unlimited-character ranks (e.g. Overseer). If this
+  // table was created before that was accounted for, it may still have a
+  // NOT NULL constraint on slots — this is safe to run every time; it's a
+  // no-op once the column is already nullable.
+  await sql`
+    ALTER TABLE users ALTER COLUMN slots DROP NOT NULL;
   `;
 
   await sql`

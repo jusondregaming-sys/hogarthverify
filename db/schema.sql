@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   discord_id TEXT PRIMARY KEY,
   username TEXT NOT NULL,
   rank TEXT NOT NULL,
-  slots INTEGER NOT NULL,
+  slots INTEGER, -- NULL means unlimited (e.g. Overseer)
   avatar TEXT,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
