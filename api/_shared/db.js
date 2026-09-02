@@ -55,6 +55,23 @@ async function ensureSchema() {
   await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS reviewed_by TEXT;`;
   await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ;`;
 
+  // Backfill columns for the Wizarding Passport character form (surname,
+  // blood status, species, dob, gender, physical description, wand).
+  // age/house are left in place (unused by the current form) so any old
+  // rows keep whatever they had.
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS surname TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS given_names TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS blood_status TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS species TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS dob DATE;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS gender TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS height TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS eye_colour TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS wand_wood TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS wand_core TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS wand_length TEXT;`;
+  await sql`ALTER TABLE characters ADD COLUMN IF NOT EXISTS wand_adaptability TEXT;`;
+
   await sql`
     CREATE TABLE IF NOT EXISTS inbox_messages (
       id SERIAL PRIMARY KEY,

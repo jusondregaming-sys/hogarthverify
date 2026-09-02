@@ -21,7 +21,10 @@ module.exports = async (req, res) => {
 
     const { rows: applications } = await sql`
       SELECT
-        c.id, c.name, c.age, c.house, c.bio, c.created_at,
+        c.id, c.name, c.surname, c.given_names, c.blood_status, c.species,
+        c.dob, c.gender, c.height, c.eye_colour,
+        c.wand_wood, c.wand_core, c.wand_length, c.wand_adaptability,
+        c.bio, c.created_at,
         u.discord_id AS applicant_discord_id,
         u.username AS applicant_username,
         u.avatar AS applicant_avatar,

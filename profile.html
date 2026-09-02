@@ -712,6 +712,7 @@
   }
 
   .field input,
+  .field select,
   .field textarea {
     width: 100%;
     font-family: 'Optima', Georgia, serif;
@@ -721,6 +722,21 @@
     background: #f8f3e9;
     border: 1px solid rgba(27, 12, 8, 0.25);
     padding: 0.7rem 0.8rem;
+  }
+
+  .field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231b0c08' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.1em;
+    padding-right: 2.2rem;
+    cursor: pointer;
+  }
+
+  .field select:invalid {
+    color: rgba(27, 12, 8, 0.5);
   }
 
   .field textarea {
@@ -735,6 +751,172 @@
 
   .field-row .field {
     flex: 1;
+  }
+
+  .field-hint {
+    margin-top: 0.4rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: #1b0c08;
+    opacity: 0.5;
+  }
+
+  .optional-tag {
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 0.7;
+    font-weight: 500;
+  }
+
+  /* ---------- passport form sections ---------- */
+
+  .passport-heading {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+    margin-bottom: 1.4rem;
+  }
+
+  .form-section {
+    margin-bottom: 1.8rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.1);
+  }
+
+  .form-section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .form-section-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1rem;
+    color: #1b0c08;
+    opacity: 0.8;
+    margin-bottom: 1.1rem;
+  }
+
+  .sublabel {
+    opacity: 0.5 !important;
+  }
+
+  /* ---------- accessible info panels (blood status / species / wand) ---------- */
+
+  .info-toggle {
+    margin-top: 0.6rem;
+  }
+
+  .info-toggle summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.55;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    transition: opacity 0.2s ease;
+  }
+
+  .info-toggle summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .info-toggle summary::before {
+    content: '?';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-size: 0.85em;
+    flex-shrink: 0;
+  }
+
+  .info-toggle:hover summary,
+  .info-toggle[open] summary {
+    opacity: 0.9;
+  }
+
+  .info-body {
+    margin-top: 0.8rem;
+    padding: 0.9rem 1rem;
+    background: rgba(27, 12, 8, 0.04);
+    border-left: 2px solid rgba(27, 12, 8, 0.25);
+  }
+
+  .info-body p {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: #1b0c08;
+    opacity: 0.8;
+    margin-bottom: 0.7rem;
+  }
+
+  .info-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .info-body strong {
+    opacity: 1;
+  }
+
+  .info-body em {
+    opacity: 0.6;
+  }
+
+  /* ---------- passport-style character detail rows (cards + applications) ---------- */
+
+  .passport-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .passport-row {
+    font-family: 'Optima', Georgia, serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .passport-row .k {
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.62rem;
+    color: #1b0c08;
+    opacity: 0.45;
+    display: block;
+  }
+
+  .passport-row .v {
+    font-weight: 500;
+    color: #1b0c08;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 520px) {
+    .passport-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .form-msg {
@@ -844,24 +1026,217 @@
         <div class="section-heading" id="create-heading">Create a Character</div>
         <div class="slots-note" id="create-slots-note">—</div>
         <div class="form-wrap">
-          <div class="field">
-            <label for="char-name">Character Name</label>
-            <input type="text" id="char-name" placeholder="e.g. Wren Ashcombe">
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="char-age">Age</label>
-              <input type="text" id="char-age" placeholder="e.g. 16">
+
+          <div class="passport-heading">Wizarding Passport</div>
+
+          <!-- ===== Standard Information ===== -->
+          <div class="form-section">
+            <div class="form-section-title">Standard Information</div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="char-given">Given Name(s)</label>
+                <input type="text" id="char-given" placeholder="e.g. Wren Elowen">
+              </div>
+              <div class="field">
+                <label for="char-surname">Surname</label>
+                <input type="text" id="char-surname" placeholder="e.g. Ashcombe">
+              </div>
             </div>
+
             <div class="field">
-              <label for="char-house">House / Affiliation</label>
-              <input type="text" id="char-house" placeholder="e.g. Ashgrove Hall">
+              <label for="char-blood">Blood Status</label>
+              <select id="char-blood" required>
+                <option value="" disabled selected>Select blood status…</option>
+                <option value="Pureblood">Pureblood</option>
+                <option value="Half-blooded">Half-blooded</option>
+                <option value="Non-Magickal-Born">Non-Magickal-Born</option>
+                <option value="Maladroit">Maladroit</option>
+                <option value="Corrupt-blooded">Corrupt-blooded</option>
+              </select>
+              <details class="info-toggle">
+                <summary>What do these mean?</summary>
+                <div class="info-body">
+                  <p><strong>Pureblood</strong> — individuals who strictly have Elven-human or magickal human blood.</p>
+                  <p><strong>Half-blooded</strong> — individuals who have either Elven-human or magickal human blood, mixed with human blood.</p>
+                  <p><strong>Non-Magickal-Born</strong> — individuals who are born from humans with no magickal abilities.</p>
+                  <p><strong>Maladroit</strong> — half-blooded individuals who were born without any magickal abilities.</p>
+                  <p><strong>Corrupt-blooded</strong> — individuals who are vampires or half vampires.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="field">
+              <label for="char-species">Species</label>
+              <select id="char-species" required>
+                <option value="" disabled selected>Select species…</option>
+                <option value="Elven-Human">Elven-Human</option>
+                <option value="Magickal Human">Magickal Human</option>
+                <option value="Human">Human</option>
+                <option value="Kthenosthrope">Kthenosthrope</option>
+                <option value="Half-Breed">Half-Breed</option>
+                <option value="Vampire">Vampire</option>
+              </select>
+              <details class="info-toggle">
+                <summary>What do these mean?</summary>
+                <div class="info-body">
+                  <p><strong>Elves</strong> <em>(unplayable — shown for reference only)</em> — the founders of the Wizarding World, considered so beautiful they could charm other magical beings, and capable of strong ancient magic passed down through generations.</p>
+                  <p><strong>Elven-Human</strong> — the 'true' Pure-blood witches: half-Elven, half-Magickal Human. They have the rare potential to inherit ancient magic, which can be life-threatening if handled incorrectly.</p>
+                  <p><strong>Magickal Human</strong> — those who possess a very similar biology to elves.</p>
+                  <p><strong>Human</strong> — non-magickal and magickal folk who don't share similar biology to elves, from ordinary backgrounds.</p>
+                  <p><strong>Kthenosthrope</strong> — those who are half-human, half-beast, e.g. Centaurs, Ichthyocentaurs, Satyrs, Merfolk, Cynocephaly.</p>
+                  <p><strong>Half-Breed</strong> — those who are Kthenosthrope or any other magical race, like Corrupt-blooded races such as a vampire, mixed with Elven-human or human.</p>
+                  <p><strong>Vampire</strong> — usually pale and gaunt; dark, mortal, magickal beings associated with the living dead. They're revenants — former humans reanimated from corrupt magick — and can be born or turned. They have sharp fangs, are nocturnal due to light sensitivity, and while their diet is normal, they must consume blood to sustain their reanimated state and their sanity. A vampire starved of blood returns to a lifeless state and cannot be reanimated again.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="char-dob">Date of Birth</label>
+                <input type="date" id="char-dob" min="1944-01-01" required>
+                <p class="field-hint">Earliest possible birth year is 1944.</p>
+              </div>
+              <div class="field">
+                <label for="char-gender">Gender</label>
+                <input type="text" id="char-gender" list="gender-suggestions" placeholder="e.g. Male, Female, Non-binary…">
+                <datalist id="gender-suggestions">
+                  <option value="Male">
+                  <option value="Female">
+                  <option value="Non-binary">
+                  <option value="Genderfluid">
+                  <option value="Agender">
+                </datalist>
+                <p class="field-hint">Free write — pick from the suggestions or type your own.</p>
+              </div>
             </div>
           </div>
+
+          <!-- ===== Physical Description ===== -->
+          <div class="form-section">
+            <div class="form-section-title">Physical Description</div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="char-height">Height <span class="optional-tag">(optional)</span></label>
+                <input type="text" id="char-height" placeholder="e.g. 170cm or 5'7&quot;">
+              </div>
+              <div class="field">
+                <label for="char-eye">Eye Colour <span class="optional-tag">(optional)</span></label>
+                <input type="text" id="char-eye" list="eye-suggestions" placeholder="e.g. Hazel">
+                <datalist id="eye-suggestions">
+                  <option value="Brown">
+                  <option value="Hazel">
+                  <option value="Green">
+                  <option value="Blue">
+                  <option value="Grey">
+                  <option value="Amber">
+                  <option value="Violet">
+                  <option value="Black">
+                  <option value="Silver">
+                  <option value="Gold">
+                  <option value="Heterochromia">
+                </datalist>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Magical Description & Miscellaneous ===== -->
+          <div class="form-section">
+            <div class="form-section-title">Magical Description &amp; Miscellaneous</div>
+
+            <div class="field">
+              <label>Wand Description</label>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="char-wand-wood" class="sublabel">Wood Type</label>
+                  <select id="char-wand-wood" required>
+                    <option value="" disabled selected>Select wood…</option>
+                    <optgroup label="Hardwoods">
+                      <option value="Ash">Ash</option>
+                      <option value="Maple">Maple</option>
+                      <option value="Birch">Birch</option>
+                      <option value="Elder">Elder</option>
+                      <option value="Oak">Oak</option>
+                      <option value="Willow">Willow</option>
+                      <option value="Bloodwood">Bloodwood</option>
+                      <option value="Rosewood">Rosewood</option>
+                      <option value="Mahogany">Mahogany</option>
+                      <option value="Cherry">Cherry</option>
+                      <option value="Walnut">Walnut</option>
+                      <option value="Ebony">Ebony</option>
+                    </optgroup>
+                    <optgroup label="Softwoods">
+                      <option value="Pine">Pine</option>
+                      <option value="Sequoia">Sequoia</option>
+                      <option value="Yew">Yew</option>
+                      <option value="Cedar">Cedar</option>
+                      <option value="Spruce">Spruce</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="char-wand-core" class="sublabel">Core Type</label>
+                  <select id="char-wand-core" required>
+                    <option value="" disabled selected>Select core…</option>
+                    <optgroup label="Common">
+                      <option value="Unicorn Hair">Unicorn Hair</option>
+                      <option value="Pheonix Feather">Pheonix Feather</option>
+                      <option value="Dragon Scale">Dragon Scale</option>
+                      <option value="Matagot Whisker">Matagot Whisker</option>
+                      <option value="Cù-Sìth Fur">Cù-Sìth Fur</option>
+                    </optgroup>
+                    <optgroup label="Rare / restricted">
+                      <option value="Basilisk Fang">Basilisk Fang</option>
+                      <option value="Griffin Feather">Griffin Feather</option>
+                      <option value="Wyvern Spike">Wyvern Spike</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="char-wand-length" class="sublabel">Length</label>
+                  <select id="char-wand-length" required>
+                    <option value="" disabled selected>Select length…</option>
+                    <option>10"</option><option>10 ¼"</option><option>10 ½"</option><option>10 ¾"</option>
+                    <option>11"</option><option>11 ¼"</option><option>11 ½"</option><option>11 ¾"</option>
+                    <option>12"</option><option>12 ¼"</option><option>12 ½"</option><option>12 ¾"</option>
+                    <option>13"</option><option>13 ¼"</option><option>13 ½"</option><option>13 ¾"</option>
+                    <option>14"</option><option>14 ¼"</option><option>14 ½"</option><option>14 ¾"</option>
+                    <option>15"</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="char-wand-adaptability" class="sublabel">Adaptability</label>
+                  <select id="char-wand-adaptability" required>
+                    <option value="" disabled selected>Select adaptability…</option>
+                    <option value="Supple">Supple</option>
+                    <option value="Bendy">Bendy</option>
+                    <option value="Amenable">Amenable</option>
+                    <option value="Finicky">Finicky</option>
+                    <option value="Obstinate">Obstinate</option>
+                  </select>
+                </div>
+              </div>
+
+              <details class="info-toggle">
+                <summary>About wand components</summary>
+                <div class="info-body">
+                  <p><strong>Cores</strong> — most cores are freely available: Unicorn Hair, Pheonix Feather, Dragon Scale, Matagot Whisker, Cù-Sìth Fur. Basilisk Fang, Griffin Feather, and Wyvern Spike are rare, powerful, and hard to control — reserved for professors and high-ranking or combat-related ministry staff. If that isn't your character, please pick a common core; an Overseer will follow up if a restricted core needs discussion.</p>
+                  <p><strong>Adaptability</strong> describes how loyal a wand is to its first wielder, from least to most loyal: Supple, Bendy, Amenable, Finicky, Obstinate.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+
           <div class="field">
-            <label for="char-bio">Short Bio</label>
+            <label for="char-bio">Short Bio <span class="optional-tag">(optional)</span></label>
             <textarea id="char-bio" placeholder="A few sentences on who they are..."></textarea>
           </div>
+
           <button class="btn" id="submit-btn" type="button">Submit Application</button>
           <p class="form-msg" id="form-msg"></p>
         </div>
@@ -921,6 +1296,42 @@
     let currentUsed = 0;
     let isOverseer = false;
 
+    // Cap the date-of-birth picker at today (server also enforces this).
+    document.getElementById('char-dob').max = new Date().toISOString().slice(0, 10);
+
+    function formatDob(dob) {
+      if (!dob) return '';
+      const d = new Date(dob);
+      if (Number.isNaN(d.getTime())) return String(dob);
+      const dd = String(d.getUTCDate()).padStart(2, '0');
+      const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+      const yyyy = d.getUTCFullYear();
+      return `${dd}/${mm}/${yyyy}`;
+    }
+
+    function calcAge(dob) {
+      if (!dob) return null;
+      const d = new Date(dob);
+      if (Number.isNaN(d.getTime())) return null;
+      const now = new Date();
+      let age = now.getUTCFullYear() - d.getUTCFullYear();
+      const hasHadBirthdayThisYear =
+        now.getUTCMonth() > d.getUTCMonth() ||
+        (now.getUTCMonth() === d.getUTCMonth() && now.getUTCDate() >= d.getUTCDate());
+      if (!hasHadBirthdayThisYear) age -= 1;
+      return age;
+    }
+
+    function wandSummary(c) {
+      const parts = [c.wand_wood, c.wand_core, c.wand_length, c.wand_adaptability].filter(Boolean);
+      return parts.length ? parts.join(', ') : '';
+    }
+
+    function passportRow(label, value) {
+      if (!value) return '';
+      return `<div class="passport-row"><span class="k">${escapeHtml(label)}</span><span class="v">${escapeHtml(value)}</span></div>`;
+    }
+
     // ---------- tabs ----------
     document.querySelectorAll('.tab').forEach((tab) => {
       tab.addEventListener('click', () => {
@@ -973,16 +1384,25 @@
       characters.forEach((c) => {
         const card = document.createElement('div');
         card.className = 'character-card';
-        const meta = [c.house, c.age ? `Age ${c.age}` : null].filter(Boolean).join(' · ');
+        const age = calcAge(c.dob);
+        const meta = [c.species, c.blood_status, age !== null ? `Age ${age}` : null].filter(Boolean).join(' · ');
         const badge = c.status === 'approved'
           ? '<span class="status-badge approved">Approved</span>'
           : '<span class="status-badge pending">Pending Review</span>';
+        const passportRows = [
+          passportRow('Date of Birth', formatDob(c.dob)),
+          passportRow('Gender', c.gender),
+          passportRow('Height', c.height),
+          passportRow('Eye Colour', c.eye_colour),
+          passportRow('Wand', wandSummary(c)),
+        ].join('');
         card.innerHTML = `
           <button class="character-delete" data-id="${c.id}" data-name="${escapeHtml(c.name)}" type="button">Delete</button>
           <div class="character-name">${escapeHtml(c.name)}</div>
           ${meta ? `<div class="character-meta">${escapeHtml(meta)}</div>` : ''}
           ${c.bio ? `<div class="character-bio">${escapeHtml(c.bio)}</div>` : ''}
-          <div>${badge}</div>
+          ${passportRows ? `<div class="passport-grid">${passportRows}</div>` : ''}
+          <div style="margin-top:0.9rem;">${badge}</div>
         `;
         grid.appendChild(card);
       });
@@ -1162,14 +1582,50 @@
       }
     }
 
+    const CREATE_FIELD_IDS = [
+      'char-given', 'char-surname', 'char-blood', 'char-species', 'char-dob', 'char-gender',
+      'char-height', 'char-eye',
+      'char-wand-wood', 'char-wand-core', 'char-wand-length', 'char-wand-adaptability',
+      'char-bio',
+    ];
+
+    const CREATE_ERROR_MESSAGES = {
+      slot_limit_reached: "You've used all your character slots.",
+      surname_required: 'Surname is required.',
+      given_names_required: 'Given name(s) are required.',
+      invalid_blood_status: 'Please select a blood status.',
+      invalid_species: 'Please select a species.',
+      gender_required: 'Please fill in gender.',
+      invalid_wand_wood: 'Please select a wand wood type.',
+      invalid_wand_core: 'Please select a wand core type.',
+      invalid_wand_length: 'Please select a wand length.',
+      invalid_wand_adaptability: 'Please select a wand adaptability.',
+      dob_required: 'Please fill in a date of birth.',
+      dob_too_early: 'Date of birth can\'t be earlier than 1944.',
+      dob_in_future: "Date of birth can't be in the future.",
+    };
+
     submitBtn.addEventListener('click', async () => {
-      const name = document.getElementById('char-name').value.trim();
-      const age = document.getElementById('char-age').value.trim();
-      const house = document.getElementById('char-house').value.trim();
+      const givenNames = document.getElementById('char-given').value.trim();
+      const surname = document.getElementById('char-surname').value.trim();
+      const bloodStatus = document.getElementById('char-blood').value;
+      const species = document.getElementById('char-species').value;
+      const dob = document.getElementById('char-dob').value;
+      const gender = document.getElementById('char-gender').value.trim();
+      const height = document.getElementById('char-height').value.trim();
+      const eyeColour = document.getElementById('char-eye').value.trim();
+      const wandWood = document.getElementById('char-wand-wood').value;
+      const wandCore = document.getElementById('char-wand-core').value;
+      const wandLength = document.getElementById('char-wand-length').value;
+      const wandAdaptability = document.getElementById('char-wand-adaptability').value;
       const bio = document.getElementById('char-bio').value.trim();
 
-      if (!name) {
-        showMsg('Give your character a name first.', false);
+      if (!givenNames || !surname) {
+        showMsg('Give your character a given name and surname.', false);
+        return;
+      }
+      if (!bloodStatus || !species || !dob || !gender || !wandWood || !wandCore || !wandLength || !wandAdaptability) {
+        showMsg('Please fill in every required field on the passport.', false);
         return;
       }
 
@@ -1180,25 +1636,30 @@
         const res = await fetch('/api/characters/create', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, age, house, bio }),
+          body: JSON.stringify({
+            givenNames, surname, bloodStatus, species, dob, gender,
+            height, eyeColour,
+            wandWood, wandCore, wandLength, wandAdaptability,
+            bio,
+          }),
         });
         const data = await res.json();
 
         if (!res.ok) {
-          if (data.error === 'slot_limit_reached') {
-            showMsg("You've used all your character slots.", false);
-          } else {
-            showMsg('Something went wrong — try again.', false);
-          }
+          showMsg(CREATE_ERROR_MESSAGES[data.error] || 'Something went wrong — try again.', false);
           submitBtn.disabled = false;
           return;
         }
 
-        document.getElementById('char-name').value = '';
-        document.getElementById('char-age').value = '';
-        document.getElementById('char-house').value = '';
-        document.getElementById('char-bio').value = '';
-        showMsg('Application submitted — an Overseer will review it soon.', true);
+        CREATE_FIELD_IDS.forEach((id) => {
+          const el = document.getElementById(id);
+          el.value = '';
+        });
+
+        const successMsg = data.wandCoreRestricted
+          ? "Application submitted — note your wand's core is a restricted type, so an Overseer will look at that closely."
+          : 'Application submitted — an Overseer will review it soon.';
+        showMsg(successMsg, true);
 
         currentUsed += 1;
         await loadProfile();
@@ -1287,10 +1748,20 @@
       applications.forEach((a) => {
         const card = document.createElement('div');
         card.className = 'application-card';
-        const meta = [a.house, a.age ? `Age ${a.age}` : null].filter(Boolean).join(' · ');
+        const age = calcAge(a.dob);
+        const meta = [a.species, a.blood_status, age !== null ? `Age ${age}` : null].filter(Boolean).join(' · ');
         const avatarSrc = a.applicant_avatar
           ? `https://cdn.discordapp.com/avatars/${a.applicant_discord_id}/${a.applicant_avatar}.png`
           : 'https://cdn.discordapp.com/embed/avatars/0.png';
+        const restrictedCoreNote = ['Basilisk Fang', 'Griffin Feather', 'Wyvern Spike'].includes(a.wand_core)
+          ? ' <strong style="opacity:1;">(restricted core)</strong>'
+          : '';
+        const passportRows = [
+          passportRow('Date of Birth', formatDob(a.dob)),
+          passportRow('Gender', a.gender),
+          passportRow('Height', a.height),
+          passportRow('Eye Colour', a.eye_colour),
+        ].join('');
 
         card.innerHTML = `
           <div class="application-applicant">
@@ -1302,6 +1773,8 @@
           </div>
           <div class="application-char-name">${escapeHtml(a.name)}</div>
           ${meta ? `<div class="application-char-meta">${escapeHtml(meta)}</div>` : ''}
+          ${passportRows ? `<div class="passport-grid">${passportRows}</div>` : ''}
+          ${wandSummary(a) ? `<div class="passport-row" style="margin-top:0.6rem;"><span class="k">Wand</span><span class="v">${escapeHtml(wandSummary(a))}${restrictedCoreNote}</span></div>` : ''}
           ${a.bio ? `<div class="application-char-bio">${escapeHtml(a.bio)}</div>` : ''}
           <div class="application-review">
             <textarea class="application-message-input" placeholder="Message to the applicant (optional, shown in their inbox)"></textarea>

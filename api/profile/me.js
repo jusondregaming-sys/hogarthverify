@@ -27,7 +27,9 @@ module.exports = async (req, res) => {
     `;
 
     const { rows: characters } = await sql`
-      SELECT id, name, age, house, bio, status, created_at
+      SELECT id, name, surname, given_names, blood_status, species, dob, gender,
+             height, eye_colour, wand_wood, wand_core, wand_length, wand_adaptability,
+             bio, status, created_at
       FROM characters
       WHERE user_discord_id = ${session.discordId}
       ORDER BY created_at ASC;
