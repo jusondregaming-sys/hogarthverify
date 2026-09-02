@@ -194,6 +194,15 @@
     cursor: not-allowed;
   }
 
+  .btn.danger {
+    background: #a13a2f;
+    color: #f8f3e9;
+  }
+
+  .btn.danger:hover {
+    opacity: 0.85;
+  }
+
   .btn svg {
     width: 15px;
     height: 15px;
@@ -201,24 +210,90 @@
     fill: currentColor;
   }
 
+  /* ---------- delete confirmation modal ---------- */
+
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 12, 8, 0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .modal-backdrop.show {
+    display: flex;
+  }
+
+  .modal-panel {
+    background: #f8f3e9;
+    border: 1px solid rgba(27, 12, 8, 0.25);
+    padding: 2rem 1.9rem;
+    max-width: 380px;
+    width: 100%;
+  }
+
+  .modal-title {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 1.25rem;
+    color: #1b0c08;
+    margin-bottom: 0.7rem;
+  }
+
+  .modal-desc {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #1b0c08;
+    opacity: 0.75;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-input {
+    width: 100%;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #1b0c08;
+    background: #ffffff;
+    border: 1px solid rgba(27, 12, 8, 0.3);
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+  }
+
   /* ---------- signed-in state ---------- */
 
   .account-bar {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    border-bottom: 1px solid rgba(27, 12, 8, 0.12);
-    padding-bottom: 1.8rem;
-    margin-bottom: 2.2rem;
+    gap: 1.3rem;
+    background: rgba(27, 12, 8, 0.04);
+    border: 1px solid rgba(27, 12, 8, 0.12);
+    padding: 1.6rem 1.7rem;
+    margin-bottom: 2.4rem;
   }
 
   .account-avatar {
-    width: 52px;
-    height: 52px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     background: rgba(27, 12, 8, 0.1);
+    border: 2px solid #1b0c08;
     flex-shrink: 0;
     object-fit: cover;
+    display: block;
   }
 
   .account-name {
@@ -226,19 +301,22 @@
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    line-height: 1.1;
     color: #1b0c08;
   }
 
   .account-rank {
-    margin-top: 0.2rem;
+    display: inline-block;
+    margin-top: 0.5rem;
     font-family: 'Optima', Georgia, serif;
     font-weight: 800;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #1b0c08;
-    opacity: 0.55;
+    color: #f8f3e9;
+    background: #1b0c08;
+    padding: 0.32rem 0.7rem;
   }
 
   .section-heading {
@@ -539,7 +617,7 @@
     <div id="profile-content" style="display:none;">
 
       <div class="account-bar">
-        <img class="account-avatar" id="account-avatar" alt="">
+        <img class="account-avatar" id="account-avatar" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';">
         <div>
           <div class="account-name" id="account-name">—</div>
           <div class="account-rank" id="account-rank">—</div>
@@ -603,6 +681,19 @@
     </div>
 
   </main>
+
+  <!-- ---------- delete confirmation modal ---------- -->
+  <div class="modal-backdrop" id="delete-modal">
+    <div class="modal-panel">
+      <div class="modal-title">Delete <span id="delete-char-name"></span>?</div>
+      <p class="modal-desc">This can't be undone. Type your Discord username (<strong id="delete-username-hint"></strong>) to confirm.</p>
+      <input type="text" id="delete-confirm-input" class="modal-input" placeholder="Type your username" autocomplete="off">
+      <div class="modal-actions">
+        <button class="btn secondary" id="delete-cancel-btn" type="button">Cancel</button>
+        <button class="btn danger" id="delete-confirm-btn" type="button" disabled>Delete Character</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const signinPanel = document.getElementById('signin-panel');
@@ -670,7 +761,7 @@
         card.className = 'character-card';
         const meta = [c.house, c.age ? `Age ${c.age}` : null].filter(Boolean).join(' · ');
         card.innerHTML = `
-          <button class="character-delete" data-id="${c.id}" type="button">Delete</button>
+          <button class="character-delete" data-id="${c.id}" data-name="${escapeHtml(c.name)}" type="button">Delete</button>
           <div class="character-name" style="padding-right:4rem;">${escapeHtml(c.name)}</div>
           ${meta ? `<div class="character-meta">${escapeHtml(meta)}</div>` : ''}
           ${c.bio ? `<div class="character-bio">${escapeHtml(c.bio)}</div>` : ''}
@@ -701,35 +792,74 @@
       formWrap.style.display = full ? 'none' : 'block';
     }
 
-    grid.addEventListener('click', async (e) => {
+    // ---------- delete confirmation modal ----------
+    const deleteModal = document.getElementById('delete-modal');
+    const deleteCharNameEl = document.getElementById('delete-char-name');
+    const deleteUsernameHint = document.getElementById('delete-username-hint');
+    const deleteInput = document.getElementById('delete-confirm-input');
+    const deleteConfirmBtn = document.getElementById('delete-confirm-btn');
+    const deleteCancelBtn = document.getElementById('delete-cancel-btn');
+
+    let pendingDeleteId = null;
+    let currentUsername = '';
+
+    function openDeleteModal(id, name) {
+      pendingDeleteId = id;
+      deleteCharNameEl.textContent = name;
+      deleteUsernameHint.textContent = currentUsername;
+      deleteInput.value = '';
+      deleteConfirmBtn.disabled = true;
+      deleteConfirmBtn.textContent = 'Delete Character';
+      deleteModal.classList.add('show');
+      deleteInput.focus();
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.remove('show');
+      pendingDeleteId = null;
+    }
+
+    deleteInput.addEventListener('input', () => {
+      deleteConfirmBtn.disabled = deleteInput.value.trim().toLowerCase() !== currentUsername.toLowerCase();
+    });
+
+    deleteCancelBtn.addEventListener('click', closeDeleteModal);
+    deleteModal.addEventListener('click', (e) => {
+      if (e.target === deleteModal) closeDeleteModal();
+    });
+
+    grid.addEventListener('click', (e) => {
       const btn = e.target.closest('.character-delete');
       if (!btn) return;
+      openDeleteModal(btn.dataset.id, btn.dataset.name);
+    });
 
-      const id = btn.dataset.id;
-      if (!confirm('Delete this character? This cannot be undone.')) return;
+    deleteConfirmBtn.addEventListener('click', async () => {
+      if (!pendingDeleteId) return;
 
-      btn.disabled = true;
-      btn.textContent = 'Deleting…';
+      deleteConfirmBtn.disabled = true;
+      deleteConfirmBtn.textContent = 'Deleting…';
 
       try {
         const res = await fetch('/api/characters/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id }),
+          body: JSON.stringify({ id: pendingDeleteId }),
         });
 
         if (!res.ok) {
-          btn.disabled = false;
-          btn.textContent = 'Delete';
+          deleteConfirmBtn.disabled = false;
+          deleteConfirmBtn.textContent = 'Delete Character';
           alert('Could not delete that character — try again.');
           return;
         }
 
+        closeDeleteModal();
         await loadProfile();
       } catch (err) {
         console.error(err);
-        btn.disabled = false;
-        btn.textContent = 'Delete';
+        deleteConfirmBtn.disabled = false;
+        deleteConfirmBtn.textContent = 'Delete Character';
         alert('Could not delete that character — try again.');
       }
     });
@@ -747,8 +877,9 @@
       signinPanel.style.display = 'none';
       profileContent.style.display = 'block';
 
-      nameEl.textContent = data.username;
-      rankEl.textContent = data.rank;
+      currentUsername = data.username || '';
+      nameEl.textContent = data.username || 'Unknown';
+      rankEl.textContent = data.rank || 'Member';
       avatarEl.src = data.avatar
         ? `https://cdn.discordapp.com/avatars/${data.discordId}/${data.avatar}.png`
         : `https://cdn.discordapp.com/embed/avatars/0.png`;
