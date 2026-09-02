@@ -269,6 +269,28 @@
   .character-card {
     border: 1px solid rgba(27, 12, 8, 0.15);
     padding: 1.4rem 1.5rem;
+    position: relative;
+  }
+
+  .character-delete {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #a13a2f;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+  }
+
+  .character-delete:hover {
+    opacity: 1;
   }
 
   .character-name {
@@ -549,7 +571,8 @@
         card.className = 'character-card';
         const meta = [c.house, c.age ? `Age ${c.age}` : null].filter(Boolean).join(' · ');
         card.innerHTML = `
-          <div class="character-name">${escapeHtml(c.name)}</div>
+          <button class="character-delete" data-id="${c.id}" type="button">Delete</button>
+          <div class="character-name" style="padding-right:4rem;">${escapeHtml(c.name)}</div>
           ${meta ? `<div class="character-meta">${escapeHtml(meta)}</div>` : ''}
           ${c.bio ? `<div class="character-bio">${escapeHtml(c.bio)}</div>` : ''}
         `;
@@ -571,6 +594,39 @@
       createHeading.style.display = full ? 'none' : 'block';
       formWrap.style.display = full ? 'none' : 'block';
     }
+
+    grid.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.character-delete');
+      if (!btn) return;
+
+      const id = btn.dataset.id;
+      if (!confirm('Delete this character? This cannot be undone.')) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Deleting…';
+
+      try {
+        const res = await fetch('/api/characters/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id }),
+        });
+
+        if (!res.ok) {
+          btn.disabled = false;
+          btn.textContent = 'Delete';
+          alert('Could not delete that character — try again.');
+          return;
+        }
+
+        await loadProfile();
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.textContent = 'Delete';
+        alert('Could not delete that character — try again.');
+      }
+    });
 
     async function loadProfile() {
       const res = await fetch('/api/profile/me');

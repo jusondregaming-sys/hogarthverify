@@ -252,130 +252,6 @@
     fill: currentColor;
   }
 
-  /* status line under verification step */
-
-  .status {
-    margin-top: 0.9rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #1b0c08;
-    opacity: 0.5;
-  }
-
-  .status .dot {
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: #a13a2f;
-    margin-right: 0.4em;
-    vertical-align: middle;
-  }
-
-  .note {
-    margin-top: 1.4rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 0.82rem;
-    line-height: 1.6;
-    color: #1b0c08;
-    opacity: 0.55;
-    max-width: 48ch;
-  }
-
-  /* ---------- form placeholder ---------- */
-
-  .form-wrap {
-    margin-top: 2.6rem;
-    border: 1px solid rgba(27, 12, 8, 0.18);
-    background: rgba(27, 12, 8, 0.03);
-    padding: 2rem 1.9rem;
-    position: relative;
-  }
-
-  .form-wrap.locked {
-    opacity: 0.45;
-  }
-
-  .form-wrap.locked::after {
-    content: 'Verify your Discord to unlock';
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 1rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #1b0c08;
-    background: rgba(248, 243, 233, 0.6);
-  }
-
-  .field {
-    margin-bottom: 1.3rem;
-  }
-
-  .field:last-of-type {
-    margin-bottom: 0;
-  }
-
-  .field label {
-    display: block;
-    margin-bottom: 0.45rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.68rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: #1b0c08;
-    opacity: 0.6;
-  }
-
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-size: 0.88rem;
-    color: #1b0c08;
-    background: #f8f3e9;
-    border: 1px solid rgba(27, 12, 8, 0.25);
-    padding: 0.7rem 0.8rem;
-  }
-
-  .field textarea {
-    resize: vertical;
-    min-height: 5rem;
-  }
-
-  .field-row {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .field-row .field {
-    flex: 1;
-  }
-
-  .form-footnote {
-    margin-top: 1.2rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 0.76rem;
-    color: #1b0c08;
-    opacity: 0.5;
-  }
-
   @media (max-width: 520px) {
     nav.top {
       gap: 1.2rem;
@@ -386,10 +262,6 @@
     }
     .step {
       gap: 1rem;
-    }
-    .field-row {
-      flex-direction: column;
-      gap: 0;
     }
   }
 
@@ -422,96 +294,52 @@
 
   <div class="hero">
     <h1 class="start-title">Start Here</h1>
-    <p class="start-sub">verify your Discord, confirm your rank, and register your original character</p>
+    <p class="start-sub">how to create your character and begin playing at the Hogarth Institute</p>
   </div>
 
   <main>
 
-    <p class="panel-intro">Character creation is tied to the Hogarth Discord server. Complete the two steps below before the registration form unlocks.</p>
+    <p class="panel-intro">A quick rundown of what to do before you jump in.</p>
 
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-body">
-        <div class="step-title">Verify Discord</div>
-        <div class="step-desc">Connect your Discord account so we can confirm you're a member of the Hogarth Institute server and check your current rank.</div>
-        <a class="btn" id="verify-btn" href="/api/discord/login">
+        <div class="step-title">Join the Discord</div>
+        <div class="step-desc">The Hogarth community, announcements, and support all happen on Discord. Join the server if you haven't already.</div>
+        <a class="btn" href="https://discord.gg/Mt8sCFcHVF" target="_blank" rel="noopener">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
-          Verify with Discord
+          Join the Discord
         </a>
-        <div class="status" id="verify-status"><span class="dot"></span>Not verified</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <div class="step-title">Rank Check</div>
-        <div class="step-desc">Once verified, your server rank is pulled automatically. Some character slots or types may be limited to certain ranks.</div>
-        <div class="status" id="rank-status"><span class="dot"></span>Awaiting verification</div>
+        <div class="step-title">Read the Lore</div>
+        <div class="step-desc">Get familiar with the world, its rules, and its classes before you build a character around them.</div>
+        <a class="btn secondary" href="lore.html">Read the Lore</a>
       </div>
     </div>
 
-    <div class="form-wrap locked" id="form-wrap">
-      <div class="panel-heading" style="font-size:1.3rem; margin-bottom:1.4rem;">Register a Character</div>
-      <p class="panel-intro" style="margin-bottom:1.4rem;">Character registration now happens on your Profile page, where you can also see everyone you've already created.</p>
-      <a class="btn" id="profile-link-btn" href="profile.html" style="opacity:0.35; pointer-events:none;">Go to Profile</a>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-title">Create Your Character</div>
+        <div class="step-desc">Head to your Profile and sign in with Discord. Once you're in, you can register a character with a name, age, house or affiliation, and a short bio. How many characters you can make depends on your server rank.</div>
+        <a class="btn" href="profile.html">Go to Profile</a>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-title">Begin Playing</div>
+        <div class="step-desc">Once your character is registered, connect to the server and jump in. Any questions along the way — ask in Discord.</div>
+      </div>
     </div>
 
   </main>
-
-  <script>
-    const verifyStatus = document.getElementById('verify-status');
-    const rankStatus = document.getElementById('rank-status');
-    const verifyBtn = document.getElementById('verify-btn');
-    const formWrap = document.getElementById('form-wrap');
-    const profileLinkBtn = document.getElementById('profile-link-btn');
-
-    function setStatus(el, text, ok) {
-      el.innerHTML = `<span class="dot" style="background:${ok ? '#4a7a3f' : '#a13a2f'};"></span>${text}`;
-    }
-
-    function unlockForm(rank, slots) {
-      formWrap.classList.remove('locked');
-      profileLinkBtn.style.opacity = '1';
-      profileLinkBtn.style.pointerEvents = 'auto';
-      const slotText = slots === 1 ? '1 character' : `${slots} characters`;
-      setStatus(rankStatus, `Rank confirmed: ${rank} — you can register ${slotText}`, true);
-    }
-
-    async function checkStatus() {
-      try {
-        const res = await fetch('/api/discord/status');
-        const data = await res.json();
-
-        if (data.verified) {
-          setStatus(verifyStatus, `Verified as ${data.username}`, true);
-          verifyBtn.textContent = 'Re-verify with Discord';
-          unlockForm(data.rank, data.slots);
-        } else {
-          setStatus(verifyStatus, 'Not verified', false);
-        }
-      } catch (err) {
-        console.error('Could not reach verification service:', err);
-      }
-    }
-
-    // Surface the result of a just-completed OAuth redirect, if any.
-    const params = new URLSearchParams(window.location.search);
-    const verifyResult = params.get('verify');
-    if (verifyResult === 'not_member') {
-      setStatus(verifyStatus, "Discord verified, but you're not in the Hogarth server", false);
-    } else if (verifyResult === 'denied') {
-      setStatus(verifyStatus, 'Discord authorization was cancelled', false);
-    } else if (verifyResult === 'error') {
-      setStatus(verifyStatus, 'Something went wrong — try again', false);
-    }
-    if (verifyResult) {
-      // Clean the query string so refreshing doesn't re-trigger the message.
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-
-    checkStatus();
-  </script>
 
 </body>
 </html>
