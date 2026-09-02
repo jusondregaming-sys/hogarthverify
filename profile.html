@@ -865,9 +865,31 @@
     });
 
     async function loadProfile() {
-      const res = await fetch('/api/profile/me');
+      let res;
+      try {
+        res = await fetch('/api/profile/me');
+      } catch (err) {
+        console.error('Could not reach /api/profile/me:', err);
+        signinMsg.textContent = 'Could not reach the server — check your connection and try refreshing.';
+        signinMsg.classList.add('show');
+        signinPanel.style.display = 'block';
+        profileContent.style.display = 'none';
+        return;
+      }
 
       if (res.status === 401) {
+        signinPanel.style.display = 'block';
+        profileContent.style.display = 'none';
+        return;
+      }
+
+      if (!res.ok) {
+        // Something went wrong server-side — most likely the database isn't
+        // connected yet. Show this honestly instead of rendering blank/
+        // placeholder profile data.
+        console.error('profile/me returned', res.status, await res.text().catch(() => ''));
+        signinMsg.textContent = "Couldn't load your profile — the database may not be connected yet. Check the Vercel function logs for api/profile/me.";
+        signinMsg.classList.add('show');
         signinPanel.style.display = 'block';
         profileContent.style.display = 'none';
         return;
