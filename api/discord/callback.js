@@ -4,6 +4,7 @@
 
 const {
   STATE_COOKIE,
+  NEXT_COOKIE,
   COOKIE_NAME,
   parseCookies,
   serializeCookie,
@@ -15,15 +16,28 @@ const SITE_URL = process.env.SITE_URL || '/'; // e.g. https://yoursite.vercel.ap
 
 module.exports = async (req, res) => {
   const { code, state, error } = req.query;
+  const cookies = parseCookies(req);
+
+  // Where to send the user back to. Falls back to profile.html if the
+  // cookie is missing/expired/tampered with.
+  const next = cookies[NEXT_COOKIE] && /^[a-zA-Z0-9_-]+\.html$/.test(cookies[NEXT_COOKIE])
+    ? cookies[NEXT_COOKIE]
+    : 'profile.html';
+
+  const clearOauthCookies = [
+    serializeCookie(STATE_COOKIE, '', { maxAge: 0 }),
+    serializeCookie(NEXT_COOKIE, '', { maxAge: 0 }),
+  ];
 
   if (error) {
-    res.writeHead(302, { Location: `${SITE_URL}/start.html?verify=denied` });
+    res.setHeader('Set-Cookie', clearOauthCookies);
+    res.writeHead(302, { Location: `${SITE_URL}/${next}?verify=denied` });
     return res.end();
   }
 
-  const cookies = parseCookies(req);
   if (!code || !state || state !== cookies[STATE_COOKIE]) {
-    res.writeHead(302, { Location: `${SITE_URL}/start.html?verify=error` });
+    res.setHeader('Set-Cookie', clearOauthCookies);
+    res.writeHead(302, { Location: `${SITE_URL}/${next}?verify=error` });
     return res.end();
   }
 
@@ -60,7 +74,8 @@ module.exports = async (req, res) => {
 
     if (memberRes.status === 404) {
       // Token exchange succeeded but the user isn't in the server.
-      res.writeHead(302, { Location: `${SITE_URL}/start.html?verify=not_member` });
+      res.setHeader('Set-Cookie', clearOauthCookies);
+      res.writeHead(302, { Location: `${SITE_URL}/${next}?verify=not_member` });
       return res.end();
     }
     if (!memberRes.ok) throw new Error(`member fetch failed: ${memberRes.status}`);
@@ -81,14 +96,15 @@ module.exports = async (req, res) => {
 
     res.setHeader('Set-Cookie', [
       serializeCookie(COOKIE_NAME, session, { maxAge: 60 * 60 * 2 }),
-      serializeCookie(STATE_COOKIE, '', { maxAge: 0 }), // clear the state cookie
+      ...clearOauthCookies,
     ]);
 
-    res.writeHead(302, { Location: `${SITE_URL}/start.html?verify=success` });
+    res.writeHead(302, { Location: `${SITE_URL}/${next}?verify=success` });
     res.end();
   } catch (err) {
     console.error('Discord OAuth callback error:', err);
-    res.writeHead(302, { Location: `${SITE_URL}/start.html?verify=error` });
+    res.setHeader('Set-Cookie', clearOauthCookies);
+    res.writeHead(302, { Location: `${SITE_URL}/${next}?verify=error` });
     res.end();
   }
 };

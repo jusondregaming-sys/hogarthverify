@@ -251,6 +251,57 @@
     margin-bottom: 0.4rem;
   }
 
+  /* ---------- tabs ---------- */
+
+  .tabs {
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 2.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.15);
+  }
+
+  .tab {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(0.7rem, 1.3vw, 0.8rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0;
+    position: relative;
+  }
+
+  .tab:hover {
+    opacity: 0.75;
+  }
+
+  .tab.active {
+    opacity: 1;
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.03rem;
+    height: 1px;
+    background: #1b0c08;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
   .slots-note {
     font-family: 'Optima', Georgia, serif;
     font-weight: 500;
@@ -477,7 +528,8 @@
     <!-- ---------- signed-out state ---------- -->
     <div class="signin-panel" id="signin-panel">
       <p>Sign in with Discord to see your characters, rank, and anything you've unlocked.</p>
-      <a class="btn" href="/api/discord/login">
+      <p class="form-msg" id="signin-msg" style="margin-bottom:1.2rem;"></p>
+      <a class="btn" href="/api/discord/login?next=profile.html">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
         Sign in with Discord
       </a>
@@ -494,45 +546,59 @@
         </div>
       </div>
 
-      <div class="section-heading">Your Characters</div>
-      <div class="slots-note" id="slots-note">—</div>
-      <div class="character-grid" id="character-grid"></div>
-
-      <div class="section-heading">Pets &amp; Cosmetics</div>
-      <div class="stub-grid">
-        <div class="stub-card">Pets coming soon</div>
-        <div class="stub-card">Cosmetics coming soon</div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" role="tab" aria-selected="true" data-panel="tab-characters">Characters</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="tab-pets-cosmetics">Pets &amp; Cosmetics</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="tab-achievements-quests">Achievements &amp; Quests</button>
       </div>
 
-      <div class="section-heading">Achievements &amp; Quests</div>
-      <div class="stub-grid">
-        <div class="stub-card">Achievements coming soon</div>
-        <div class="stub-card">Quests coming soon</div>
-      </div>
+      <section class="tab-panel active" id="tab-characters" role="tabpanel">
 
-      <div class="section-heading" id="create-heading">Create a Character</div>
-      <div class="form-wrap">
-        <div class="field">
-          <label for="char-name">Character Name</label>
-          <input type="text" id="char-name" placeholder="e.g. Wren Ashcombe">
-        </div>
-        <div class="field-row">
+        <div class="section-heading">Your Characters</div>
+        <div class="slots-note" id="slots-note">—</div>
+        <div class="character-grid" id="character-grid"></div>
+
+        <div class="section-heading" id="create-heading">Create a Character</div>
+        <div class="form-wrap">
           <div class="field">
-            <label for="char-age">Age</label>
-            <input type="text" id="char-age" placeholder="e.g. 16">
+            <label for="char-name">Character Name</label>
+            <input type="text" id="char-name" placeholder="e.g. Wren Ashcombe">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="char-age">Age</label>
+              <input type="text" id="char-age" placeholder="e.g. 16">
+            </div>
+            <div class="field">
+              <label for="char-house">House / Affiliation</label>
+              <input type="text" id="char-house" placeholder="e.g. Ashgrove Hall">
+            </div>
           </div>
           <div class="field">
-            <label for="char-house">House / Affiliation</label>
-            <input type="text" id="char-house" placeholder="e.g. Ashgrove Hall">
+            <label for="char-bio">Short Bio</label>
+            <textarea id="char-bio" placeholder="A few sentences on who they are..."></textarea>
           </div>
+          <button class="btn" id="submit-btn" type="button">Create Character</button>
+          <p class="form-msg" id="form-msg"></p>
         </div>
-        <div class="field">
-          <label for="char-bio">Short Bio</label>
-          <textarea id="char-bio" placeholder="A few sentences on who they are..."></textarea>
+
+      </section>
+
+      <section class="tab-panel" id="tab-pets-cosmetics" role="tabpanel">
+        <div class="section-heading">Pets &amp; Cosmetics</div>
+        <div class="stub-grid">
+          <div class="stub-card">Pets coming soon</div>
+          <div class="stub-card">Cosmetics coming soon</div>
         </div>
-        <button class="btn" id="submit-btn" type="button">Create Character</button>
-        <p class="form-msg" id="form-msg"></p>
-      </div>
+      </section>
+
+      <section class="tab-panel" id="tab-achievements-quests" role="tabpanel">
+        <div class="section-heading">Achievements &amp; Quests</div>
+        <div class="stub-grid">
+          <div class="stub-card">Achievements coming soon</div>
+          <div class="stub-card">Quests coming soon</div>
+        </div>
+      </section>
 
     </div>
 
@@ -540,6 +606,7 @@
 
   <script>
     const signinPanel = document.getElementById('signin-panel');
+    const signinMsg = document.getElementById('signin-msg');
     const profileContent = document.getElementById('profile-content');
     const avatarEl = document.getElementById('account-avatar');
     const nameEl = document.getElementById('account-name');
@@ -551,8 +618,40 @@
     const submitBtn = document.getElementById('submit-btn');
     const formMsg = document.getElementById('form-msg');
 
-    let currentSlots = 0;
+    let currentSlots = 0; // null = unlimited
     let currentUsed = 0;
+
+    // ---------- tabs ----------
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach((p) => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+      });
+    });
+
+    // ---------- verify-result messaging (after an OAuth redirect back here) ----------
+    const params = new URLSearchParams(window.location.search);
+    const verifyResult = params.get('verify');
+    if (verifyResult === 'not_member') {
+      signinMsg.textContent = "Discord verified, but you're not in the Hogarth server.";
+      signinMsg.classList.add('show');
+    } else if (verifyResult === 'denied') {
+      signinMsg.textContent = 'Discord authorization was cancelled.';
+      signinMsg.classList.add('show');
+    } else if (verifyResult === 'error') {
+      signinMsg.textContent = 'Something went wrong — try again.';
+      signinMsg.classList.add('show');
+    }
+    if (verifyResult) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
 
     function showMsg(text, ok) {
       formMsg.textContent = text;
@@ -587,6 +686,13 @@
     }
 
     function updateSlotUI() {
+      if (currentSlots === null) {
+        slotsNote.textContent = `${currentUsed} character${currentUsed === 1 ? '' : 's'} — unlimited slots`;
+        submitBtn.disabled = false;
+        createHeading.style.display = 'block';
+        formWrap.style.display = 'block';
+        return;
+      }
       const slotText = currentSlots === 1 ? '1 character' : `${currentSlots} characters`;
       slotsNote.textContent = `${currentUsed} of ${slotText} used`;
       const full = currentUsed >= currentSlots;

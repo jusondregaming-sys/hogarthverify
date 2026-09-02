@@ -7,22 +7,25 @@ const jwt = require('jsonwebtoken');
 
 const COOKIE_NAME = 'hogarth_session';
 const STATE_COOKIE = 'hogarth_oauth_state';
+const NEXT_COOKIE = 'hogarth_oauth_next';
 
 // ---------------------------------------------------------------------
 // Map your Discord role IDs to a rank name AND how many characters that
-// rank is allowed to register. Highest rank first — the first match wins.
-// Anyone with NO matching role still falls through to DEFAULT_RANK below,
-// which is set to allow 1 character.
+// rank is allowed to register. Highest-priority rank first — the first
+// match wins, so if someone has multiple roles, put the one that should
+// "win" higher in this list.
+//
+// slots: null means UNLIMITED characters (used for Overseer).
 // ---------------------------------------------------------------------
 const RANK_ROLES = [
-  { roleId: '1544453130765344828', rank: 'VIP+', slots: 3 },
-  { roleId: '1544453072380624977', rank: 'VIP', slots: 2 },
-  { roleId: '1544453257496231946', rank: 'Early Supporter', slots: 1 },
+  { roleId: '1512778519237754970', rank: 'Overseer', slots: null },
+  { roleId: '1544453130765344828', rank: 'VIP+', slots: 7 },
+  { roleId: '1544453072380624977', rank: 'VIP', slots: 5 },
+  { roleId: '1544453257496231946', rank: 'Early Supporter', slots: 5 },
 ];
 
-// Used when a verified member has none of the roles above.
-// slots: 1 means they're still allowed to register one character.
-const DEFAULT_RANK = { rank: 'Member', slots: 1 };
+// Used when a verified member has none of the roles above ("Normal").
+const DEFAULT_RANK = { rank: 'Member', slots: 3 };
 
 function rankFromRoleIds(roleIds) {
   for (const entry of RANK_ROLES) {
@@ -77,6 +80,7 @@ function readSession(req) {
 module.exports = {
   COOKIE_NAME,
   STATE_COOKIE,
+  NEXT_COOKIE,
   rankFromRoleIds,
   parseCookies,
   serializeCookie,

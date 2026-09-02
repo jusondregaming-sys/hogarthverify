@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
     `;
     const used = countRows[0].count;
 
-    if (used >= session.slots) {
+    if (session.slots !== null && used >= session.slots) {
       return res.status(403).json({ error: 'slot_limit_reached', slots: session.slots, used });
     }
 
