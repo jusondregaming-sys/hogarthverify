@@ -43,11 +43,11 @@ const CORE_TYPES = [
 const RESTRICTED_CORES = ['Basilisk Fang', 'Griffin Feather', 'Wyvern Spike'];
 
 const WAND_LENGTHS = [
-  '10"', '10 ¼"', '10 ½"', '10 ¾"',
-  '11"', '11 ¼"', '11 ½"', '11 ¾"',
-  '12"', '12 ¼"', '12 ½"', '12 ¾"',
-  '13"', '13 ¼"', '13 ½"', '13 ¾"',
-  '14"', '14 ¼"', '14 ½"', '14 ¾"',
+  '10"', '10 1/4"', '10 1/2"', '10 3/4"',
+  '11"', '11 1/4"', '11 1/2"', '11 3/4"',
+  '12"', '12 1/4"', '12 1/2"', '12 3/4"',
+  '13"', '13 1/4"', '13 1/2"', '13 3/4"',
+  '14"', '14 1/4"', '14 1/2"', '14 3/4"',
   '15"',
 ];
 
@@ -90,6 +90,8 @@ module.exports = async (req, res) => {
   if (!BLOOD_STATUSES.includes(bloodStatus)) return res.status(400).json({ error: 'invalid_blood_status' });
   if (!SPECIES.includes(species)) return res.status(400).json({ error: 'invalid_species' });
   if (!gender) return res.status(400).json({ error: 'gender_required' });
+  if (!height) return res.status(400).json({ error: 'height_required' });
+  if (!eyeColour) return res.status(400).json({ error: 'eye_colour_required' });
   if (!wandWood || !WOOD_TYPES.includes(wandWood)) return res.status(400).json({ error: 'invalid_wand_wood' });
   if (!wandCore || !CORE_TYPES.includes(wandCore)) return res.status(400).json({ error: 'invalid_wand_core' });
   if (!wandLength || !WAND_LENGTHS.includes(wandLength)) return res.status(400).json({ error: 'invalid_wand_length' });
@@ -132,7 +134,7 @@ module.exports = async (req, res) => {
       )
       VALUES (
         ${session.discordId}, ${name}, ${surname}, ${givenNames}, ${bloodStatus}, ${species},
-        ${dobRaw}, ${gender}, ${height || null}, ${eyeColour || null},
+        ${dobRaw}, ${gender}, ${height}, ${eyeColour},
         ${wandWood}, ${wandCore}, ${wandLength}, ${wandAdaptability},
         ${bio || null}, 'pending'
       )

@@ -1080,7 +1080,7 @@
               <details class="info-toggle">
                 <summary>What do these mean?</summary>
                 <div class="info-body">
-                  <p><strong>Elves</strong> <em>(unplayable — shown for reference only)</em> — the founders of the Wizarding World, considered so beautiful they could charm other magical beings, and capable of strong ancient magic passed down through generations.</p>
+                  <p><strong>Elves</strong> <em>(unplayable — shown for reference only)</em> — the founders of The Society of Magickal Folk, considered so beautiful they could charm other magical beings, and capable of strong ancient magic passed down through generations.</p>
                   <p><strong>Elven-Human</strong> — the 'true' Pure-blood witches: half-Elven, half-Magickal Human. They have the rare potential to inherit ancient magic, which can be life-threatening if handled incorrectly.</p>
                   <p><strong>Magickal Human</strong> — those who possess a very similar biology to elves.</p>
                   <p><strong>Human</strong> — non-magickal and magickal folk who don't share similar biology to elves, from ordinary backgrounds.</p>
@@ -1118,12 +1118,12 @@
 
             <div class="field-row">
               <div class="field">
-                <label for="char-height">Height <span class="optional-tag">(optional)</span></label>
-                <input type="text" id="char-height" placeholder="e.g. 170cm or 5'7&quot;">
+                <label for="char-height">Height</label>
+                <input type="text" id="char-height" placeholder="e.g. 170cm or 5'7&quot;" required>
               </div>
               <div class="field">
-                <label for="char-eye">Eye Colour <span class="optional-tag">(optional)</span></label>
-                <input type="text" id="char-eye" list="eye-suggestions" placeholder="e.g. Hazel">
+                <label for="char-eye">Eye Colour</label>
+                <input type="text" id="char-eye" list="eye-suggestions" placeholder="e.g. Hazel" required>
                 <datalist id="eye-suggestions">
                   <option value="Brown">
                   <option value="Hazel">
@@ -1201,11 +1201,11 @@
                   <label for="char-wand-length" class="sublabel">Length</label>
                   <select id="char-wand-length" required>
                     <option value="" disabled selected>Select length…</option>
-                    <option>10"</option><option>10 ¼"</option><option>10 ½"</option><option>10 ¾"</option>
-                    <option>11"</option><option>11 ¼"</option><option>11 ½"</option><option>11 ¾"</option>
-                    <option>12"</option><option>12 ¼"</option><option>12 ½"</option><option>12 ¾"</option>
-                    <option>13"</option><option>13 ¼"</option><option>13 ½"</option><option>13 ¾"</option>
-                    <option>14"</option><option>14 ¼"</option><option>14 ½"</option><option>14 ¾"</option>
+                    <option>10"</option><option>10 1/4"</option><option>10 1/2"</option><option>10 3/4"</option>
+                    <option>11"</option><option>11 1/4"</option><option>11 1/2"</option><option>11 3/4"</option>
+                    <option>12"</option><option>12 1/4"</option><option>12 1/2"</option><option>12 3/4"</option>
+                    <option>13"</option><option>13 1/4"</option><option>13 1/2"</option><option>13 3/4"</option>
+                    <option>14"</option><option>14 1/4"</option><option>14 1/2"</option><option>14 3/4"</option>
                     <option>15"</option>
                   </select>
                 </div>
@@ -1225,7 +1225,7 @@
               <details class="info-toggle">
                 <summary>About wand components</summary>
                 <div class="info-body">
-                  <p><strong>Cores</strong> — most cores are freely available: Unicorn Hair, Pheonix Feather, Dragon Scale, Matagot Whisker, Cù-Sìth Fur. Basilisk Fang, Griffin Feather, and Wyvern Spike are rare, powerful, and hard to control — reserved for professors and high-ranking or combat-related ministry staff. If that isn't your character, please pick a common core; an Overseer will follow up if a restricted core needs discussion.</p>
+                  <p><strong>Cores</strong> — rare cores, including Basilisk Fang, Griffin Feather and Wyvern Spike, are reserved for professors and high-ranking or combat-related Wizarding Gov. U.K. staff. If your character doesn't fall under these categories, you must pick a common core.</p>
                   <p><strong>Adaptability</strong> describes how loyal a wand is to its first wielder, from least to most loyal: Supple, Bendy, Amenable, Finicky, Obstinate.</p>
                 </div>
               </details>
@@ -1596,6 +1596,8 @@
       invalid_blood_status: 'Please select a blood status.',
       invalid_species: 'Please select a species.',
       gender_required: 'Please fill in gender.',
+      height_required: 'Height is required.',
+      eye_colour_required: 'Eye colour is required.',
       invalid_wand_wood: 'Please select a wand wood type.',
       invalid_wand_core: 'Please select a wand core type.',
       invalid_wand_length: 'Please select a wand length.',
@@ -1624,7 +1626,7 @@
         showMsg('Give your character a given name and surname.', false);
         return;
       }
-      if (!bloodStatus || !species || !dob || !gender || !wandWood || !wandCore || !wandLength || !wandAdaptability) {
+      if (!bloodStatus || !species || !dob || !gender || !height || !eyeColour || !wandWood || !wandCore || !wandLength || !wandAdaptability) {
         showMsg('Please fill in every required field on the passport.', false);
         return;
       }
