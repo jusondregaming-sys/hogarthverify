@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lore — Hogarth Institute of Witchery</title>
+<title>Encyclopedia — Hogarth Institute of Witchery</title>
 <link rel="stylesheet" href="grain.css">
 <link rel="stylesheet" href="fonts.css">
 <style>
@@ -488,6 +488,121 @@
     margin-top: 0.4rem;
   }
 
+  /* ---------- houses ---------- */
+
+  .house-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .house-card {
+    border-top: 3px solid var(--accent, #8a8a8a);
+    background: rgba(27, 12, 8, 0.03);
+    padding: 1.4rem 1.4rem 1.6rem;
+  }
+
+  .house-swatches {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .house-swatches span {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(27, 12, 8, 0.15);
+  }
+
+  .house-name {
+    font-family: 'Argent Pixel', Georgia, serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    color: #1b0c08;
+  }
+
+  .house-meta {
+    margin-top: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .house-meta span {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1b0c08;
+    opacity: 0.45;
+  }
+
+  .house-meta span b {
+    font-weight: 800;
+    opacity: 1;
+    color: var(--accent, #1b0c08);
+    filter: brightness(0.8);
+  }
+
+  .house-desc {
+    margin-top: 0.8rem;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #1b0c08;
+    opacity: 0.7;
+  }
+
+  /* ---------- subjects ---------- */
+
+  .subject-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subject-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.1);
+  }
+
+  .subject-row:last-child {
+    border-bottom: none;
+  }
+
+  .subject-name {
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: #1b0c08;
+    opacity: 0.85;
+  }
+
+  .subject-tag {
+    flex-shrink: 0;
+    font-family: 'Optima', Georgia, serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.76rem;
+    color: #1b0c08;
+    opacity: 0.5;
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .house-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 520px) {
     nav.top {
       gap: 1.2rem;
@@ -499,6 +614,13 @@
     .tabs {
       gap: 1.1rem 1.4rem;
     }
+    .subject-row {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .subject-tag {
+      text-align: left;
+    }
   }
 
 </style>
@@ -507,7 +629,7 @@
 
   <nav class="top">
     <a href="index.html">Home</a>
-    <a href="lore.html" class="active">Lore</a>
+    <a href="lore.html" class="active">Encyclopedia</a>
     <a href="start.html">Start</a>
     <a href="store.html">Store</a>
     <a href="profile.html">Profile</a>
@@ -529,15 +651,17 @@
   </div>
 
   <div class="hero">
-    <h1 class="lore-title">The Lore</h1>
+    <h1 class="lore-title">The Encyclopedia</h1>
     <p class="lore-sub">the history, magic, and world behind Hogarth</p>
   </div>
 
   <div class="tabs" role="tablist">
     <button class="tab active" role="tab" aria-selected="true" data-panel="disclaimer">Disclaimer</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="history">History</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="houses">Houses</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="subjects">Subjects</button>
     <button class="tab" role="tab" aria-selected="false" data-panel="background">Background</button>
     <button class="tab" role="tab" aria-selected="false" data-panel="spells">Spells</button>
-    <button class="tab" role="tab" aria-selected="false" data-panel="classes">Classes</button>
   </div>
 
   <main>
@@ -552,6 +676,92 @@
         <p>All graphics and artwork produced by Cxyb3ria for Hogarth Institute of Witchery may ONLY be shared outside the community by the overseers, unless permission has been clearly granted.</p>
         <p>Due to similarities, it must be noted that any mentions of J. K. Rowling&rsquo;s Wizarding World elements or characters within our community are &copy; &amp; TM Warner Bros. Entertainment Inc. Publishing Rights &copy; J.K. Rowling.</p>
         <p>We, the overseers, state firmly that Hogarth Institute of Witchery is a separate entity and has no ties to J. K. Rowling, TM Warner Bros. Entertainment Inc. or their work.</p>
+      </div>
+    </section>
+
+    <!-- ---------- HISTORY ---------- -->
+    <section class="panel" id="history" role="tabpanel">
+      <h2 class="panel-heading">History</h2>
+      <p class="panel-intro">The founding of the Society of Magickal Folk, the origins of Hogarth Institute, and the events that shaped the wizarding world into what it is today.</p>
+
+      <div class="accordion">
+
+        <details class="accordion-item" open>
+          <summary>The Elven Race &amp; the Society of Magickal Folk<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>The Society of Magickal Folk was created by the Elven Race, the true bearers of magickal ability and knowledge. They honed and wielded Ancient Magic to build safe communities in every part of the world, where magickal races and creatures could thrive away from the non-magickal citizens of the world &mdash; humans.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Governmental Law &amp; the Penitentiary<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>In time it was discovered that a small number of humans also possessed Ancient Magic. Their biology was near-identical to the Elven race, though their appearances differed, and they were welcomed into the community.</p>
+            <p>As the society grew, laws were put in place. Magickal folk were strictly forbidden from revealing anything about magick to ordinary citizens &mdash; the non-magickals feared witchcraft and, believing their lives at stake, hunted down anyone they deemed peculiar.</p>
+            <p>Each wizarding community formed its own wizarding government to oversee magickal affairs within its territory (the Wizarding Gov. U.K., for example). Every government elected a Minister, who represented their nation within the International Society of Magickal Beings.</p>
+            <p>In the United Kingdom, the Penitentiary for Wizarding Crimes was built at Sliabh Liag in Ireland, after it became clear that some magickal folk intended to use their powers selfishly &mdash; for revenge, and to create dark magick that harms and controls victims against their will. Those individuals were sent away, though their actions left traces that linger still.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>The Creation of Wands<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>As laws were established and spells developed, witches needed a way to channel raw magickal energy. Wands were created from various woods and cores drawn from magickal creatures, helping to mellow or amplify the power a witch intended to use.</p>
+            <p>The core within each wand bonds with its user, matching their energy, intentions, and personality.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Teaching Magick &amp; the Founding of Hogarth<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>As wizarding families bloomed, schools were founded to teach new witches and wizards how to hone their newly discovered abilities. One school in particular &mdash; Hogarth Institute of Witchery, formerly known as Hogarth's Academy for Witches &mdash; was created in 1260 by a powerful Scottish Elf, who wanted to share magickal knowledge with anyone possessing the ability, through a formal schooling setting.</p>
+            <p>Students learned to control their powers, alongside magickal creatures, plants, and other subjects &mdash; how to use them, care for them, and apply them to everyday life.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Blood Purity<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Centuries passed, and witching communities thrived alongside magickal families. More humans with strong magickal abilities were discovered, and the pure Elven bloodline diminished across many families. It was also found that some humans, without any biological tie to the Elven folk, possessed magickal abilities of their own &mdash; these individuals were labelled non-magickal-born.</p>
+            <p>As non-magicks witnessed peculiar events firsthand, their hatred and fear grew. Magickal families went into hiding to avoid the witch trials that claimed the lives of witches and innocent ordinary humans alike.</p>
+            <p>This fear gave rise to blood purity elitism. The term "pure-blood" came to label families and individuals with strictly Elven and pure magickal human heritage. Pure-blood supremacists sought to protect that purity by disowning and banishing anyone who associated with, or formed relationships with, non-magickal-born individuals &mdash; fearing it would dilute or negate the magickal identity altogether. Pure-bloods who rejected these views were branded blood traitors.</p>
+            <p>The children of pure-bloods and non-magickal-borns were named half-bloods, inheriting either a portion of their magickal heritage or none at all. Those born with no trace of magic were named maladroits, who could remain within the Society of Magickal Folk or integrate into the ordinary world &mdash; at the cost of having all memory of magick obliviated, never to see their families again.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Additional Races<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Beyond the Elven race and its human descendants, several other magickal races exist within the Society. Gruagachs, Gnomes, Orcs, and Vampires are collectively labelled corrupt-blooded.</p>
+            <p>Kthenosthropes are half-beast, half-human races, including Centaurs, Ichthyocentaurs, Satyrs, and Merfolk. Children born of these races and the Elven-human or human race are named half-breeds &mdash; and many wizarding folk remain wary of half-breeds, treating them poorly and hesitating to admit them into magickal institutions simply for being different.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Late 1590s &mdash; The Pure-blood Protest<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Witch trial after witch trial claimed innocent lives, burned and tortured, as families feared for their safety across the land &mdash; until one witch took it upon herself to restore order to the Society of Magickal Folk, and to instil fear and terror within non-magickal society in return.</p>
+            <p>Órlaith Gaundt became a name both known and loved by many, worshipped and praised for her deeds. Slaughter was normalised for so long under her influence that, when she seemingly vanished into thin air, her whereabouts unknown, her legacy continued to burn like a wildfire long after she was gone.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>1943 &mdash; The Death of a Non-Magical-Born Student<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Madeline Barnhardt of Corvuxora was a quiet, polite girl, often bullied for her looks and lack of friends after joining Hogarth late as a second-year student. She spent her time in the girls' lavatory or in dark corners of the castle grounds, by the lake when it was too cold to be outside &mdash; anywhere she could be alone, away from the eyes that saw her as prey. It only backed her further into a corner, and she met her fate there.</p>
+            <p>Only a few know what truly happened, who did it, or how. She may still be seen in the corners of the castle, or heard screaming, lingering as a ghost who can no longer find peace. She was the first &mdash; though she would not be the last, unless whoever took her is one day taken themselves.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>1950 &mdash; The Rapid Disappearances of Students<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <p>Seven years passed after the death of Madeline Barnhardt with no further incidents &mdash; until the start of the 1950 school year, when non-magical-born students began disappearing every few months. Soon it was every month, then every week.</p>
+            <p>The school has remained under strict protocol ever since: supervised trips to Arnisdale, security posted through every corner of the Knoydart Region, and transportation surveyed around the clock. Witch trials have all but vanished. And yet something seems determined to see Órlaith Gaundt's work honoured and continued &mdash; for the blood that built this society is pure, forevermore. Nothing might ever get in its way&hellip;</p>
+            <span class="tag">More information coming soon</span>
+          </div>
+        </details>
+
       </div>
     </section>
 
@@ -581,6 +791,100 @@
           <summary>Hogarth Academy<span class="icon"></span></summary>
           <div class="accordion-body">
             <span class="tag">More information coming soon</span>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ---------- HOUSES ---------- -->
+    <section class="panel" id="houses" role="tabpanel">
+      <h2 class="panel-heading">Houses</h2>
+      <p class="panel-intro">Hogarth Institute is split into four houses, each shaped by a temperament and watched over by its mascot creature.</p>
+
+      <div class="house-grid">
+
+        <div class="house-card" style="--accent:#800000">
+          <div class="house-swatches"><span style="background:#800000"></span><span style="background:#d4af37"></span></div>
+          <div class="house-name">Panthedora</div>
+          <div class="house-meta">
+            <span>Temperament &mdash; <b>Sanguine</b></span>
+            <span>Mascot &mdash; <b>The Lion</b></span>
+            <span>Colours &mdash; <b>Maroon &amp; Gold</b></span>
+          </div>
+          <p class="house-desc">Inspired by the sanguine temperament, Panthedora is represented by the prideful lion.</p>
+        </div>
+
+        <div class="house-card" style="--accent:#c58f00">
+          <div class="house-swatches"><span style="background:#c58f00"></span><span style="background:#8f8f8f"></span></div>
+          <div class="house-name">Castorida</div>
+          <div class="house-meta">
+            <span>Temperament &mdash; <b>Phlegmatic</b></span>
+            <span>Mascot &mdash; <b>The Beaver</b></span>
+            <span>Colours &mdash; <b>Honey Yellow &amp; Dark Silver</b></span>
+          </div>
+          <p class="house-desc">Inspired by the phlegmatic temperament, Castorida is represented by the respectable beaver.</p>
+        </div>
+
+        <div class="house-card" style="--accent:#6C3BAA">
+          <div class="house-swatches"><span style="background:#6C3BAA"></span><span style="background:#e8dfc0"></span></div>
+          <div class="house-name">Corvuxora</div>
+          <div class="house-meta">
+            <span>Temperament &mdash; <b>Melancholic</b></span>
+            <span>Mascot &mdash; <b>The Raven</b></span>
+            <span>Colours &mdash; <b>Royal Purple &amp; White Gold</b></span>
+          </div>
+          <p class="house-desc">Inspired by the melancholic temperament, Corvuxora is represented by the sharp-witted raven.</p>
+        </div>
+
+        <div class="house-card" style="--accent:#014d4e">
+          <div class="house-swatches"><span style="background:#014d4e"></span><span style="background:#b8b8b8"></span></div>
+          <div class="house-name">Vilapidaea</div>
+          <div class="house-meta">
+            <span>Temperament &mdash; <b>Choleric</b></span>
+            <span>Mascot &mdash; <b>The Black Mamba</b></span>
+            <span>Colours &mdash; <b>Dark Teal &amp; Silver</b></span>
+          </div>
+          <p class="house-desc">Inspired by the choleric temperament, Vilapidaea is represented by the black mamba snake.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---------- SUBJECTS ---------- -->
+    <section class="panel" id="subjects" role="tabpanel">
+      <h2 class="panel-heading">Subjects</h2>
+      <p class="panel-intro">The curriculum taught within the halls of Hogarth Institute.</p>
+
+      <div class="accordion">
+        <details class="accordion-item" open>
+          <summary>Core Curriculum<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <div class="subject-list">
+              <div class="subject-row"><span class="subject-name">Astronomy</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Botany</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Herbology</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Defence Against Heinous Artistry</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Magickal History</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Potioneering</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Runic &amp; Arithmetic Studies</span><span class="subject-tag">Elective &mdash; Sixth Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Spellcraft</span><span class="subject-tag">Core Subject</span></div>
+              <div class="subject-row"><span class="subject-name">Charms</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Divination</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Transfiguration &amp; Conjuration</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Additional Subjects<span class="icon"></span></summary>
+          <div class="accordion-body">
+            <div class="subject-list">
+              <div class="subject-row"><span class="subject-name">Art</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Brōm Flight</span><span class="subject-tag">Mandatory &mdash; First Years</span></div>
+              <div class="subject-row"><span class="subject-name">Music</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+              <div class="subject-row"><span class="subject-name">Non-magick Humanities</span><span class="subject-tag">Elective &mdash; Third Form onwards</span></div>
+            </div>
+            <span class="tag">Subject overview documents coming soon</span>
           </div>
         </details>
       </div>
@@ -1041,14 +1345,6 @@
         </details>
 
       </div>
-    </section>
-
-    <!-- ---------- CLASSES ---------- -->
-    <section class="panel" id="classes" role="tabpanel">
-      <h2 class="panel-heading">Classes</h2>
-      <p class="panel-intro">The subjects taught within the halls of Hogarth Academy.</p>
-
-      <p class="placeholder">Class information is being written into the curriculum. Check back soon.</p>
     </section>
 
   </main>
