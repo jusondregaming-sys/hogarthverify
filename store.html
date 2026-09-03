@@ -307,10 +307,10 @@
   }
 
   @keyframes step-fade {
-    0%   { opacity: 0; }
-    20%  { opacity: 0.45; }
-    70%  { opacity: 0.45; }
-    100% { opacity: 0; }
+    0%   { opacity: 0; transform: var(--step-transform) scale(0.7); }
+    8%   { opacity: 0.55; transform: var(--step-transform) scale(1); }
+    51%  { opacity: 0.55; transform: var(--step-transform) scale(1); }
+    100% { opacity: 0; transform: var(--step-transform) scale(1); }
   }
 
 
@@ -323,40 +323,50 @@
 
   /* ---------- entrance fade ---------- */
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   nav.top {
     opacity: 0;
-    animation: fade-in 1s ease-out 0.5s forwards;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
 
   .socials {
     opacity: 0;
-    animation: fade-in 1s ease-out 0.5s forwards;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
 
   .hero {
     opacity: 0;
-    animation: fade-in 1s ease-out 0.15s forwards;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
 
   main {
     opacity: 0;
-    animation: fade-in 1s ease-out 0.55s forwards;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  nav.top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .socials.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hero.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  main.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   @media (prefers-reduced-motion: reduce) {
     nav.top, .socials, .hero, main {
-      animation: none;
+      transition: none;
       opacity: 1;
       transform: none;
     }
@@ -375,7 +385,7 @@
   <div class="footstep-trail" aria-hidden="true"></div>
 
 
-  <nav class="top">
+  <nav class="top" data-fade data-fade-delay="0.3">
     <a href="index.html">Home</a>
     <a href="lore.html">Encyclopedia</a>
     <a href="start.html">Start</a>
@@ -383,7 +393,7 @@
     <a href="profile.html">Profile</a>
   </nav>
 
-  <div class="socials" aria-label="Social links">
+  <div class="socials" aria-label="Social links" data-fade data-fade-delay="0.3">
     <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
     </a>
@@ -398,7 +408,7 @@
     </a>
   </div>
 
-  <div class="hero">
+  <div class="hero" data-fade data-fade-delay="0.05">
     <h1 class="store-title">Store Front</h1>
     <p class="store-sub">explore ranks, cosmetics, and companions for your characters</p>
   </div>
@@ -409,7 +419,7 @@
     <button class="tab" role="tab" aria-selected="false" data-panel="pets">Pets</button>
   </div>
 
-  <main>
+  <main data-fade data-fade-delay="0.35">
 
     <section class="panel active" id="ranks" role="tabpanel">
 
@@ -480,7 +490,8 @@
   });
   </script>
 
-  <script src="footsteps.js" defer></script>
+  <script src="footsteps.js"></script>
+  <script src="page-fade.js"></script>
 
 </body>
 </html>
