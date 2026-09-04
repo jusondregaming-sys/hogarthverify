@@ -1,0 +1,59 @@
+/* fonts.css
+   Local @font-face declarations for the two typefaces already referenced
+   throughout the site's CSS: 'Argent Pixel' (headings) and 'Optima'
+   (nav / body copy / labels). Font files live in ./fonts/.
+
+   woff2 is listed first (smallest, every modern browser), then woff,
+   then eot last for the very old IE fallback case. */
+
+@font-face {
+  font-family: 'Argent Pixel';
+  src: url('fonts/ArgentPixelCF-Regular.woff2') format('woff2'),
+       url('fonts/ArgentPixelCF-Regular.woff') format('woff'),
+       url('fonts/ArgentPixelCF-Regular.eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Argent Pixel';
+  src: url('fonts/ArgentPixelCF-Italic.woff2') format('woff2'),
+       url('fonts/ArgentPixelCF-Italic.woff') format('woff'),
+       url('fonts/ArgentPixelCF-Italic.eot');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('fonts/OPTIMA.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('fonts/Optima_Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('fonts/OPTIMA_B.TTF') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('fonts/Optima_Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}

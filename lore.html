@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encyclopedia — Hogarth Institute of Witchery</title>
-<link rel="stylesheet" href="grain.css">
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css?v=2">
+<link rel="stylesheet" href="footsteps.css?v=4">
 <style>
 
   * {
@@ -628,119 +628,10 @@
     }
   }
 
-
-  /* ---------- page transitions ---------- */
-
-  body.page-leaving {
-    opacity: 0;
-    transition: opacity 0.38s ease-in;
-  }
-
-  /* ---------- footstep trail ---------- */
-
-  .footstep-trail {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 5;
-  }
-
-  .footstep-trail .step {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    color: #1b0c08;
-    opacity: 0;
-  }
-
-  .footstep-trail .step svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    fill: currentColor;
-  }
-
-  @keyframes step-fade {
-    0%   { opacity: 0; transform: var(--step-transform) scale(0.7); }
-    8%   { opacity: 0.55; transform: var(--step-transform) scale(1); }
-    51%  { opacity: 0.55; transform: var(--step-transform) scale(1); }
-    100% { opacity: 0; transform: var(--step-transform) scale(1); }
-  }
-
-
-  @media (max-width: 640px) {
-    .footstep-trail .step {
-      width: 15px;
-      height: 15px;
-    }
-  }
-
-  /* ---------- entrance fade ---------- */
-
-  nav.top {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  .socials {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  .hero {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  main {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  nav.top.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .socials.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .hero.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  main.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    nav.top, .socials, .hero, main {
-      transition: none;
-      opacity: 1;
-      transform: none;
-    }
-    .footstep-trail {
-      display: none;
-    }
-    body.page-leaving {
-      opacity: 1;
-      transition: none;
-    }
-  }
-
 </style>
 </head>
 <body>
-  <div class="footstep-trail" aria-hidden="true"></div>
-
-
-  <nav class="top" data-fade data-fade-delay="0.3">
+  <nav class="top">
     <a href="index.html">Home</a>
     <a href="lore.html" class="active">Encyclopedia</a>
     <a href="start.html">Start</a>
@@ -748,7 +639,7 @@
     <a href="profile.html">Profile</a>
   </nav>
 
-  <div class="socials" aria-label="Social links" data-fade data-fade-delay="0.3">
+  <div class="socials" aria-label="Social links">
     <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
     </a>
@@ -763,7 +654,7 @@
     </a>
   </div>
 
-  <div class="hero" data-fade data-fade-delay="0.05">
+  <div class="hero">
     <h1 class="lore-title">The Encyclopedia</h1>
     <p class="lore-sub">the history, magic, and world behind Hogarth</p>
   </div>
@@ -776,7 +667,7 @@
     <button class="tab" role="tab" aria-selected="false" data-panel="spells">Spells</button>
   </div>
 
-  <main data-fade data-fade-delay="0.35">
+  <main>
 
     <!-- ---------- DISCLAIMER ---------- -->
     <section class="panel active" id="disclaimer" role="tabpanel">
@@ -1442,23 +1333,7 @@
     });
   </script>
 
-  <script>
-  document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href$=".html"]');
-    if (!link || link.target === '_blank') return;
-    try {
-      if (link.origin !== window.location.origin) return;
-    } catch (err) { return; }
-    e.preventDefault();
-    document.body.classList.add('page-leaving');
-    setTimeout(function () {
-      window.location.href = link.href;
-    }, 380);
-  });
-  </script>
-
-  <script src="footsteps.js"></script>
-  <script src="page-fade.js"></script>
+  <script src="footsteps.js?v=4"></script>
 
 </body>
 </html>

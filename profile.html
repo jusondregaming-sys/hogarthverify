@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile — Hogarth Institute of Witchery</title>
-<link rel="stylesheet" href="grain.css">
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css?v=2">
+<link rel="stylesheet" href="footsteps.css?v=4">
 <style>
 
   * {
@@ -201,27 +201,14 @@
     fill: currentColor;
   }
 
-  /* ---------- signed-in state ---------- */
+  /* ---------- verified state ---------- */
 
-  .account-bar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .verified-status {
     border-bottom: 1px solid rgba(27, 12, 8, 0.12);
-    padding-bottom: 1.8rem;
-    margin-bottom: 2.2rem;
+    padding-bottom: 1.6rem;
   }
 
-  .account-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: rgba(27, 12, 8, 0.1);
-    flex-shrink: 0;
-    object-fit: cover;
-  }
-
-  .account-name {
+  .verified-badge {
     font-family: 'Argent Pixel', Georgia, serif;
     font-weight: normal;
     text-transform: uppercase;
@@ -230,178 +217,15 @@
     color: #1b0c08;
   }
 
-  .account-rank {
-    margin-top: 0.2rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.68rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: #1b0c08;
-    opacity: 0.55;
-  }
-
-  .section-heading {
-    font-family: 'Argent Pixel', Georgia, serif;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: clamp(1.2rem, 2.4vw, 1.5rem);
-    color: #1b0c08;
-    margin-bottom: 0.4rem;
-  }
-
-  .slots-note {
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    color: #1b0c08;
-    opacity: 0.6;
-    margin-bottom: 1.6rem;
-  }
-
-  .character-grid {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 2.8rem;
-  }
-
-  .character-card {
-    border: 1px solid rgba(27, 12, 8, 0.15);
-    padding: 1.4rem 1.5rem;
-  }
-
-  .character-name {
-    font-family: 'Argent Pixel', Georgia, serif;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    font-size: 1.15rem;
-    color: #1b0c08;
-  }
-
-  .character-meta {
+  .verified-rank {
     margin-top: 0.3rem;
     font-family: 'Optima', Georgia, serif;
     font-weight: 800;
     font-size: 0.68rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: #1b0c08;
-    opacity: 0.5;
-  }
-
-  .character-bio {
-    margin-top: 0.7rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-size: 0.86rem;
-    line-height: 1.55;
-    color: #1b0c08;
-    opacity: 0.75;
-  }
-
-  .empty-note {
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 0.86rem;
-    color: #1b0c08;
-    opacity: 0.55;
-    padding: 1.2rem 0;
-  }
-
-  /* ---------- placeholder systems ---------- */
-
-  .stub-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.9rem;
-    margin-bottom: 2.8rem;
-  }
-
-  .stub-card {
-    border: 1px dashed rgba(27, 12, 8, 0.2);
-    padding: 1.3rem 1rem;
-    text-align: center;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-size: 0.78rem;
-    letter-spacing: 0.03em;
-    color: #1b0c08;
-    opacity: 0.45;
-  }
-
-  /* ---------- create character form ---------- */
-
-  .form-wrap {
-    border: 1px solid rgba(27, 12, 8, 0.18);
-    background: rgba(27, 12, 8, 0.03);
-    padding: 2rem 1.9rem;
-  }
-
-  .field {
-    margin-bottom: 1.3rem;
-  }
-
-  .field:last-of-type {
-    margin-bottom: 0;
-  }
-
-  .field label {
-    display: block;
-    margin-bottom: 0.45rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.68rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: #1b0c08;
-    opacity: 0.6;
-  }
-
-  .field input,
-  .field textarea {
-    width: 100%;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 500;
-    font-size: 0.88rem;
-    color: #1b0c08;
-    background: #f8f3e9;
-    border: 1px solid rgba(27, 12, 8, 0.25);
-    padding: 0.7rem 0.8rem;
-  }
-
-  .field textarea {
-    resize: vertical;
-    min-height: 5rem;
-  }
-
-  .field-row {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .field-row .field {
-    flex: 1;
-  }
-
-  .form-msg {
-    margin-top: 1rem;
-    font-family: 'Optima', Georgia, serif;
-    font-weight: 800;
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    color: #a13a2f;
-    display: none;
-  }
-
-  .form-msg.show {
-    display: block;
-  }
-
-  .form-msg.success {
-    color: #4a7a3f;
+    opacity: 0.55;
   }
 
   @media (max-width: 520px) {
@@ -412,125 +236,12 @@
     .socials {
       top: 1.2rem;
     }
-    .field-row {
-      flex-direction: column;
-      gap: 0;
-    }
-  }
-
-
-  /* ---------- page transitions ---------- */
-
-  body.page-leaving {
-    opacity: 0;
-    transition: opacity 0.38s ease-in;
-  }
-
-  /* ---------- footstep trail ---------- */
-
-  .footstep-trail {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 5;
-  }
-
-  .footstep-trail .step {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    color: #1b0c08;
-    opacity: 0;
-  }
-
-  .footstep-trail .step svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    fill: currentColor;
-  }
-
-  @keyframes step-fade {
-    0%   { opacity: 0; transform: var(--step-transform) scale(0.7); }
-    8%   { opacity: 0.55; transform: var(--step-transform) scale(1); }
-    51%  { opacity: 0.55; transform: var(--step-transform) scale(1); }
-    100% { opacity: 0; transform: var(--step-transform) scale(1); }
-  }
-
-
-  @media (max-width: 640px) {
-    .footstep-trail .step {
-      width: 15px;
-      height: 15px;
-    }
-  }
-
-  /* ---------- entrance fade ---------- */
-
-  nav.top {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  .socials {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  .hero {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  main {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  nav.top.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .socials.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .hero.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  main.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    nav.top, .socials, .hero, main {
-      transition: none;
-      opacity: 1;
-      transform: none;
-    }
-    .footstep-trail {
-      display: none;
-    }
-    body.page-leaving {
-      opacity: 1;
-      transition: none;
-    }
   }
 
 </style>
 </head>
 <body>
-  <div class="footstep-trail" aria-hidden="true"></div>
-
-
-  <nav class="top" data-fade data-fade-delay="0.3">
+  <nav class="top">
     <a href="index.html">Home</a>
     <a href="lore.html">Encyclopedia</a>
     <a href="start.html">Start</a>
@@ -538,7 +249,7 @@
     <a href="profile.html" class="active">Profile</a>
   </nav>
 
-  <div class="socials" aria-label="Social links" data-fade data-fade-delay="0.3">
+  <div class="socials" aria-label="Social links">
     <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
     </a>
@@ -553,16 +264,16 @@
     </a>
   </div>
 
-  <div class="hero" data-fade data-fade-delay="0.05">
+  <div class="hero">
     <h1 class="profile-title">Profile</h1>
-    <p class="profile-sub">your characters, rank, and everything tied to your Hogarth account</p>
+    <p class="profile-sub">verify your account with Discord to see your server rank</p>
   </div>
 
-  <main data-fade data-fade-delay="0.35">
+  <main>
 
     <!-- ---------- signed-out state ---------- -->
     <div class="signin-panel" id="signin-panel">
-      <p>Sign in with Discord to see your characters, rank, and anything you've unlocked.</p>
+      <p>Sign in with Discord to verify your account and see your server rank.</p>
       <a class="btn" href="/api/discord/login">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,11V8H21V6H20V5H18V4H15V5H9V4H6V5H4V6H3V8H2v3H1v7H3v1H5v1H7V18H6V17H8v1H9v1h6V18h1V17h2v1H17v2h2V19h2V18h2V11ZM9,15H7V14H6V12H7V11H9v1h1v2H9Zm9-1H17v1H15V14H14V12h1V11h2v1h1Z"/></svg>
         Sign in with Discord
@@ -571,55 +282,10 @@
 
     <!-- ---------- signed-in state ---------- -->
     <div id="profile-content" style="display:none;">
-
-      <div class="account-bar">
-        <img class="account-avatar" id="account-avatar" alt="">
-        <div>
-          <div class="account-name" id="account-name">—</div>
-          <div class="account-rank" id="account-rank">—</div>
-        </div>
+      <div class="verified-status">
+        <div class="verified-badge">Verified ✓</div>
+        <div class="verified-rank" id="account-rank">—</div>
       </div>
-
-      <div class="section-heading">Your Characters</div>
-      <div class="slots-note" id="slots-note">—</div>
-      <div class="character-grid" id="character-grid"></div>
-
-      <div class="section-heading">Pets &amp; Cosmetics</div>
-      <div class="stub-grid">
-        <div class="stub-card">Pets coming soon</div>
-        <div class="stub-card">Cosmetics coming soon</div>
-      </div>
-
-      <div class="section-heading">Achievements &amp; Quests</div>
-      <div class="stub-grid">
-        <div class="stub-card">Achievements coming soon</div>
-        <div class="stub-card">Quests coming soon</div>
-      </div>
-
-      <div class="section-heading" id="create-heading">Create a Character</div>
-      <div class="form-wrap">
-        <div class="field">
-          <label for="char-name">Character Name</label>
-          <input type="text" id="char-name" placeholder="e.g. Wren Ashcombe">
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="char-age">Age</label>
-            <input type="text" id="char-age" placeholder="e.g. 16">
-          </div>
-          <div class="field">
-            <label for="char-house">House / Affiliation</label>
-            <input type="text" id="char-house" placeholder="e.g. Ashgrove Hall">
-          </div>
-        </div>
-        <div class="field">
-          <label for="char-bio">Short Bio</label>
-          <textarea id="char-bio" placeholder="A few sentences on who they are..."></textarea>
-        </div>
-        <button class="btn" id="submit-btn" type="button">Create Character</button>
-        <p class="form-msg" id="form-msg"></p>
-      </div>
-
     </div>
 
   </main>
@@ -627,152 +293,27 @@
   <script>
     const signinPanel = document.getElementById('signin-panel');
     const profileContent = document.getElementById('profile-content');
-    const avatarEl = document.getElementById('account-avatar');
-    const nameEl = document.getElementById('account-name');
     const rankEl = document.getElementById('account-rank');
-    const slotsNote = document.getElementById('slots-note');
-    const grid = document.getElementById('character-grid');
-    const createHeading = document.getElementById('create-heading');
-    const formWrap = document.querySelector('.form-wrap');
-    const submitBtn = document.getElementById('submit-btn');
-    const formMsg = document.getElementById('form-msg');
-
-    let currentSlots = 0;
-    let currentUsed = 0;
-
-    function showMsg(text, ok) {
-      formMsg.textContent = text;
-      formMsg.classList.toggle('success', !!ok);
-      formMsg.classList.add('show');
-    }
-
-    function renderCharacters(characters) {
-      grid.innerHTML = '';
-      if (characters.length === 0) {
-        grid.innerHTML = '<p class="empty-note">No characters yet — create your first one below.</p>';
-        return;
-      }
-      characters.forEach((c) => {
-        const card = document.createElement('div');
-        card.className = 'character-card';
-        const meta = [c.house, c.age ? `Age ${c.age}` : null].filter(Boolean).join(' · ');
-        card.innerHTML = `
-          <div class="character-name">${escapeHtml(c.name)}</div>
-          ${meta ? `<div class="character-meta">${escapeHtml(meta)}</div>` : ''}
-          ${c.bio ? `<div class="character-bio">${escapeHtml(c.bio)}</div>` : ''}
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str;
-      return div.innerHTML;
-    }
-
-    function updateSlotUI() {
-      const slotText = currentSlots === 1 ? '1 character' : `${currentSlots} characters`;
-      slotsNote.textContent = `${currentUsed} of ${slotText} used`;
-      const full = currentUsed >= currentSlots;
-      submitBtn.disabled = full;
-      createHeading.style.display = full ? 'none' : 'block';
-      formWrap.style.display = full ? 'none' : 'block';
-    }
 
     async function loadProfile() {
-      const res = await fetch('/api/profile/me');
+      const res = await fetch('/api/discord/status');
+      const data = await res.json();
 
-      if (res.status === 401) {
+      if (!data.verified) {
         signinPanel.style.display = 'block';
         profileContent.style.display = 'none';
         return;
       }
 
-      const data = await res.json();
       signinPanel.style.display = 'none';
       profileContent.style.display = 'block';
-
-      nameEl.textContent = data.username;
       rankEl.textContent = data.rank;
-      avatarEl.src = data.avatar
-        ? `https://cdn.discordapp.com/avatars/${data.discordId}/${data.avatar}.png`
-        : `https://cdn.discordapp.com/embed/avatars/0.png`;
-
-      currentSlots = data.slots;
-      currentUsed = data.slotsUsed;
-
-      renderCharacters(data.characters);
-      updateSlotUI();
     }
-
-    submitBtn.addEventListener('click', async () => {
-      const name = document.getElementById('char-name').value.trim();
-      const age = document.getElementById('char-age').value.trim();
-      const house = document.getElementById('char-house').value.trim();
-      const bio = document.getElementById('char-bio').value.trim();
-
-      if (!name) {
-        showMsg('Give your character a name first.', false);
-        return;
-      }
-
-      submitBtn.disabled = true;
-      formMsg.classList.remove('show');
-
-      try {
-        const res = await fetch('/api/characters/create', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, age, house, bio }),
-        });
-        const data = await res.json();
-
-        if (!res.ok) {
-          if (data.error === 'slot_limit_reached') {
-            showMsg("You've used all your character slots.", false);
-          } else {
-            showMsg('Something went wrong — try again.', false);
-          }
-          submitBtn.disabled = false;
-          return;
-        }
-
-        document.getElementById('char-name').value = '';
-        document.getElementById('char-age').value = '';
-        document.getElementById('char-house').value = '';
-        document.getElementById('char-bio').value = '';
-        showMsg('Character created!', true);
-
-        currentUsed += 1;
-        await loadProfile();
-      } catch (err) {
-        console.error(err);
-        showMsg('Something went wrong — try again.', false);
-        submitBtn.disabled = false;
-      }
-    });
 
     loadProfile();
   </script>
 
-  <script>
-  document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href$=".html"]');
-    if (!link || link.target === '_blank') return;
-    try {
-      if (link.origin !== window.location.origin) return;
-    } catch (err) { return; }
-    e.preventDefault();
-    document.body.classList.add('page-leaving');
-    setTimeout(function () {
-      window.location.href = link.href;
-    }, 380);
-  });
-  </script>
-
-  <script src="footsteps.js"></script>
-  <script src="page-fade.js"></script>
+  <script src="footsteps.js?v=4"></script>
 
 </body>
 </html>
