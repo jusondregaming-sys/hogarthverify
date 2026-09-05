@@ -1,6 +1,6 @@
 // footsteps.js
 // A couple of faint ink footprint trails that wander across the screen,
-// Marauder's Map style: each print stamps in a beat after the last (as
+// Marauder's Masp style: each print stamps in a beat after the last (as
 // if someone is walking the path), sits for a moment, then fades away
 // again — so the trail always has a "walking away" feel rather than
 // just sitting there.
@@ -30,7 +30,7 @@
 
   var container = null;
   var activeTrails = 0;
-  var trails = []; // { el, timeoutId } for every currently-running trail
+  var pendingCleanups = []; // timeout ids for each trail's own removal, so resize can cancel them
 
   function rand(min, max) {
     return min + Math.random() * (max - min);
@@ -86,8 +86,6 @@
   }
 
   function spawnTrail() {
-    if (activeTrails >= MAX_TRAILS) return; // hard cap, enforced here regardless of caller
-
     var w = window.innerWidth;
     var h = window.innerHeight;
     var path = generatePath(w, h);
@@ -98,9 +96,6 @@
     var trailEl = document.createElement('div');
     trailEl.className = 'footstep-trail';
     container.appendChild(trailEl);
-
-    var trailRecord = { el: trailEl, timeoutId: null };
-    trails.push(trailRecord);
 
     var stagger = rand(190, 260);   // ms between each print appearing
     var life = rand(2800, 3800);    // ms each individual print stays visible
@@ -139,45 +134,43 @@
     });
 
     var totalTime = (path.length - 1) * stagger + life + 200;
-    trailRecord.timeoutId = setTimeout(function () {
+    var cleanupId = setTimeout(function () {
       trailEl.remove();
       activeTrails--;
-      var idx = trails.indexOf(trailRecord);
-      if (idx !== -1) trails.splice(idx, 1);
+      var idx = pendingCleanups.indexOf(cleanupId);
+      if (idx !== -1) pendingCleanups.splice(idx, 1);
     }, totalTime);
+    pendingCleanups.push(cleanupId);
   }
 
   // Checks frequently (not just once per trail) so a new trail starts
   // walking almost the instant a slot frees up — no dead gaps where
-  // nothing is on screen. (spawnTrail() enforces the cap itself, so
-  // this check is just to avoid a pointless function call most ticks.)
+  // nothing is on screen.
   function loop() {
     if (activeTrails < MAX_TRAILS) spawnTrail();
     setTimeout(loop, rand(500, 1100));
   }
 
   // If the window/tab is resized, any trail already walking is holding
-  // stale pixel coordinates from the old viewport size. On resize we
-  // fully tear down: cancel every trail's pending removal timer (so it
-  // can't decrement activeTrails again later and desync the count),
-  // remove its DOM, reset the count to zero, then start two fresh
-  // trails sized to the new viewport — a clean restart every time.
+  // stale pixel coordinates from the old viewport size and could end up
+  // outside the new one. Simplest reliable fix: clear them out — the
+  // loop above immediately regenerates fresh trails sized to the new
+  // viewport, so there's no visible gap.
   var resizeTimer = null;
-  function clearAllTrails() {
-    trails.forEach(function (t) {
-      clearTimeout(t.timeoutId);
-      t.el.remove();
-    });
-    trails = [];
-    activeTrails = 0;
-  }
-
   function onResize() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-      clearAllTrails();
-      spawnTrail();
-      setTimeout(spawnTrail, rand(700, 1400));
+      if (!container) return;
+      // Cancel every trail's own pending removal timeout first — otherwise
+      // those stale callbacks fire later and each does an extra
+      // `activeTrails--`, driving the count negative and causing the loop
+      // below to spawn new trails on almost every tick until it claws back
+      // up (worse with every subsequent resize).
+      pendingCleanups.forEach(function (id) { clearTimeout(id); });
+      pendingCleanups = [];
+      var trails = container.querySelectorAll('.footstep-trail');
+      trails.forEach(function (t) { t.remove(); });
+      activeTrails = 0;
     }, 150);
   }
 

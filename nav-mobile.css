@@ -1,0 +1,247 @@
+/* nav-mobile.css
+   Shared mobile-nav behaviour for the fixed top bar used on every page
+   (index / lore / start / store / profile). Loaded LAST in <head> — after
+   each page's own <style> block — on purpose: several rules here need to
+   win over that page's unconditional `nav.top { justify-content: center }`
+   etc. once the mobile media query kicks in, and a later stylesheet beats
+   an earlier one of equal specificity.
+
+   Layout below ~700px:
+     - nav.top switches from a centered row of links to a left-aligned
+       bar holding just the hamburger button.
+     - .nav-links becomes a full-width panel that slides down from behind
+       the bar when nav.top has the .nav-open class (toggled by
+       nav-mobile.js), instead of sitting inline.
+     - .nav-backdrop dims the page behind the open panel and is also a
+       click target to close it.
+
+   Above ~700px this file only adds a couple of small accessibility
+   touches (focus rings) and otherwise stays out of the way — the
+   hamburger button and mobile panel are hidden and the nav renders
+   exactly as it did before. */
+
+/* Each page's own <style> sets nav.top and .socials to z-index: 10 —
+   lower than the footsteps layer's z-index: 10000. That let the ink
+   footprint trail visually walk *over* the nav bar and social icons,
+   which reads as the nav "overlapping" the page. This file loads after
+   each page's <style>, so the same-specificity selector below wins the
+   cascade and keeps the nav/socials on top of the footprints.
+
+   NOTE: this used to also carry a `transform: translateZ(0)` +
+   `backface-visibility: hidden` pair, added to force nav.top/.socials
+   onto their own GPU layer and stop them lagging behind during
+   momentum scrolling on mobile Safari. In practice that traded one bug
+   for a worse one: putting a `transform` directly on an element that
+   is itself `position: fixed` is a well-documented trigger for mobile
+   WebKit/Chromium engines to drop the element out of fixed
+   positioning altogether, so it scrolls away with the page instead of
+   staying pinned — which is exactly the "nav and socials drift down
+   and overlap the content" bug this was rewritten to fix. Do not
+   re-add a transform to nav.top or .socials themselves; if the scroll
+   lag ever needs revisiting, promote them onto their own layer with
+   `will-change: transform` instead (that hints the compositor without
+   applying an actual transform to the fixed box). */
+nav.top,
+.socials {
+  z-index: 10050;
+}
+
+/* ---------- hide-on-scroll ----------
+   Toggled by nav-mobile.js: scrolling down past a small threshold adds
+   `.nav-hidden`, sliding the bar and social icons up out of view;
+   scrolling back up (or being near the top of the page) removes it.
+
+   Animated via `top`, not `transform`. A transform placed directly on
+   an element that is itself `position: fixed` is the same WebKit/
+   Chromium trigger described above that drops it out of fixed
+   positioning — animating `top` instead gets the same slide-away
+   effect without that risk. Selector specificity (nav.top.nav-hidden /
+   .socials.nav-hidden) is deliberately higher than the plain nav.top /
+   .socials rules above and in each page's own <style>, so this wins
+   the cascade without needing !important. */
+nav.top,
+.socials {
+  transition: top 0.3s ease;
+}
+
+nav.top.nav-hidden {
+  top: -140px;
+}
+
+.socials.nav-hidden {
+  top: -140px;
+}
+
+/* Wrapping the links in .nav-links (needed so the mobile panel has a
+   single element to slide/fade) took them out of being direct flex
+   children of nav.top, which is what the original `gap` was spacing.
+   Re-declare the same row layout here so desktop spacing is unchanged;
+   the media query below swaps it to a stacked column on mobile. */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 20;
+}
+
+.nav-toggle-bars {
+  position: relative;
+  width: 22px;
+  height: 15px;
+  display: block;
+}
+
+.nav-toggle-bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  color: #1b0c08;
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+}
+
+.nav-toggle-bars span:nth-child(1) { top: 0; }
+.nav-toggle-bars span:nth-child(2) { top: 6.5px; }
+.nav-toggle-bars span:nth-child(3) { top: 13px; }
+
+nav.top.nav-open .nav-toggle-bars span:nth-child(1) {
+  top: 6.5px;
+  transform: rotate(45deg);
+}
+
+nav.top.nav-open .nav-toggle-bars span:nth-child(2) {
+  opacity: 0;
+}
+
+nav.top.nav-open .nav-toggle-bars span:nth-child(3) {
+  top: 6.5px;
+  transform: rotate(-45deg);
+}
+
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 12, 8, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s;
+  z-index: 10040; /* below nav.top/.socials (10050), still above the footsteps layer (10000) */
+}
+
+.nav-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.nav-scroll-lock {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  nav.top {
+    justify-content: flex-start;
+    padding: 1.1rem 1.1rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10045; /* below nav.top/.socials (10050), above the footsteps layer (10000) */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: #f8f3e9;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.15);
+    box-shadow: 0 12px 24px -12px rgba(27, 12, 8, 0.25);
+    padding: 5.2rem 1.5rem 1.5rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.25s ease, visibility 0.3s;
+  }
+
+  nav.top.nav-open .nav-links {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links a {
+    width: 100%;
+    font-size: 0.95rem !important;
+    padding: 1.05rem 0 !important;
+    border-bottom: 1px solid rgba(27, 12, 8, 0.08);
+    transition: none;
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  .nav-links a.active {
+    padding-left: 1.3em !important;
+  }
+
+  /* The desktop star offset (top: calc(0.3em - 1px)) assumes a link
+     with no vertical padding, so it sits near the text baseline. The
+     mobile row is much taller (1.05rem of padding top and bottom), so
+     centering it against the row instead keeps it level with the
+     label text. */
+  .nav-links a.active::before {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* Respect reduced-motion preferences for the menu itself (the footstep
+   trail effect elsewhere on the site intentionally ignores this, but a
+   sliding/fading menu panel is exactly the kind of motion this setting
+   is meant to suppress). */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links,
+  .nav-backdrop,
+  .nav-toggle-bars span,
+  nav.top,
+  .socials {
+    transition: none !important;
+  }
+}
+
+/* ---------- accessibility: visible keyboard focus ---------- */
+/* The base nav/tab/button styles only change opacity on hover/focus,
+   which isn't enough of a cue for keyboard users. Layer a real focus
+   ring on top without touching each page's own rules. */
+
+nav a:focus-visible,
+.nav-toggle:focus-visible,
+.tab:focus-visible,
+.btn:focus-visible,
+.socials a:focus-visible {
+  outline: 2px solid #1b0c08;
+  outline-offset: 3px;
+}

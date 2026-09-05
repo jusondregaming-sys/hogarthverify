@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start — Hogarth Institute of Witchery</title>
 <link rel="stylesheet" href="fonts.css?v=2">
-<link rel="stylesheet" href="footsteps.css?v=5">
+<link rel="stylesheet" href="footsteps.css?v=4">
 <style>
 
   * {
@@ -266,15 +266,22 @@
   }
 
 </style>
+<link rel="stylesheet" href="nav-mobile.css?v=5">
 </head>
 <body>
   <nav class="top">
-    <a href="index.html">Home</a>
-    <a href="lore.html">Encyclopedia</a>
-    <a href="start.html" class="active">Start</a>
-    <a href="store.html">Store</a>
-    <a href="profile.html">Profile</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-links">
+      <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+    </button>
+    <div class="nav-links" id="site-nav-links">
+      <a href="index.html">Home</a>
+      <a href="lore.html">Encyclopedia</a>
+      <a href="start.html" class="active">Start</a>
+      <a href="store.html">Store</a>
+      <a href="profile.html">Profile</a>
+    </div>
   </nav>
+  <div class="nav-backdrop"></div>
 
   <div class="socials" aria-label="Social links">
     <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
@@ -340,7 +347,8 @@
 
   </main>
 
-  <script src="footsteps.js?v=6"></script>
+  <script src="nav-mobile.js?v=3"></script>
+  <script src="footsteps.js?v=5"></script>
 
 </body>
 </html>
