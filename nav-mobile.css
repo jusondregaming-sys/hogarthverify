@@ -95,6 +95,9 @@ nav.top.nav-hidden {
   justify-content: center;
   flex-shrink: 0;
   position: relative;
+  top: -11px; /* nudges it up to line up with .socials, which sits at a
+                fixed `top` offset rather than being vertically centered
+                in nav.top's padded row like this button is */
   z-index: 20;
 }
 
