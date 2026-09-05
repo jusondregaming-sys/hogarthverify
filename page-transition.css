@@ -1,0 +1,53 @@
+/* page-transition.css
+   Two parts to the page-arrival effect:
+
+     1. .page-veil — a full-screen overlay, the same colour as the page
+        background. It's fully opaque on load and slowly fades away to
+        reveal the page; page-transition.js fades it back in first,
+        then navigates, when you click a nav link — so the old page
+        visibly "vanishes" before the new one starts loading.
+
+     2. [data-fade] — individual content blocks (nav, socials, hero,
+        etc). Each starts slightly lowered and transparent, then rises
+        and fades in with its own delay (data-fade-delay, in seconds),
+        set by page-transition.js as the veil clears — so the page
+        reads as everything gently settling into place rather than
+        popping in all at once.
+
+   The veil sits above the footsteps layer (z-index 10000) and the
+   nav/socials (z-index 10050) so it can fully cover the page during a
+   transition. */
+
+.page-veil {
+  position: fixed;
+  inset: 0;
+  background: #f8f3e9;
+  z-index: 20000;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+}
+
+.page-veil.veil-hidden {
+  opacity: 0;
+}
+
+/* ---------- staggered content reveal ---------- */
+
+[data-fade] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+[data-fade].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* This entrance effect is intentionally exempt from
+   prefers-reduced-motion, the same deliberate choice already made for
+   the footsteps trail elsewhere on this site (see footsteps.js) — it's
+   a one-time, gentle fade rather than continuous motion, so it's kept
+   consistent and guaranteed to show up regardless of OS/browser motion
+   settings. */

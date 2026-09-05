@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Store — Hogarth Institute of Witchery</title>
 <link rel="stylesheet" href="fonts.css?v=2">
+<link rel="stylesheet" href="page-transition.css?v=1">
 <style>
 
   * {
@@ -188,10 +189,22 @@
 
   .panel {
     display: none;
+    opacity: 0;
+    transition: opacity 0.28s ease;
   }
 
   .panel.active {
     display: block;
+  }
+
+  .panel.active.fade-in {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel {
+      transition: none;
+    }
   }
 
   .rank {
@@ -277,7 +290,9 @@
 <link rel="stylesheet" href="nav-mobile.css?v=5">
 </head>
 <body>
-  <nav class="top">
+  <div class="page-veil" aria-hidden="true"></div>
+  <noscript><style>.page-veil{display:none!important;}[data-fade]{opacity:1!important;transform:none!important;}</style></noscript>
+  <nav class="top" data-fade data-fade-delay="0">
     <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-links">
       <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
     </button>
@@ -291,7 +306,7 @@
   </nav>
   <div class="nav-backdrop"></div>
 
-  <div class="socials" aria-label="Social links">
+  <div class="socials" aria-label="Social links" data-fade data-fade-delay="0.1">
     <a href="https://www.instagram.com/cxydreprojects/" aria-label="Instagram" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>
     </a>
@@ -306,18 +321,18 @@
     </a>
   </div>
 
-  <div class="hero">
+  <div class="hero" data-fade data-fade-delay="0.25">
     <h1 class="store-title">Store Front</h1>
     <p class="store-sub">explore ranks, cosmetics, and companions for your characters</p>
   </div>
 
-  <div class="tabs" role="tablist">
+  <div class="tabs" role="tablist" data-fade data-fade-delay="0.4">
     <button class="tab active" role="tab" aria-selected="true" data-panel="ranks">Ranks</button>
     <button class="tab" role="tab" aria-selected="false" data-panel="cosmetics">Cosmetics</button>
     <button class="tab" role="tab" aria-selected="false" data-panel="pets">Pets</button>
   </div>
 
-  <main>
+  <main data-fade data-fade-delay="0.5">
 
     <section class="panel active" id="ranks" role="tabpanel">
 
@@ -359,20 +374,56 @@
 
   <script>
     const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.panel');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const FADE_MS = 280; // keep in sync with the .panel transition-duration in CSS
+    let switching = false;
+
+    // Fade the panel that's already active in on first load, so it isn't
+    // just instantly visible while everything else uses a transition.
+    const initialPanel = document.querySelector('.panel.active');
+    if (initialPanel) {
+      requestAnimationFrame(() => initialPanel.classList.add('fade-in'));
+    }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-        panels.forEach(p => p.classList.remove('active'));
+        if (switching || tab.classList.contains('active')) return;
 
+        const targetPanel = document.getElementById(tab.dataset.panel);
+        const currentPanel = document.querySelector('.panel.active');
+        if (!targetPanel || targetPanel === currentPanel) return;
+
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
-        document.getElementById(tab.dataset.panel).classList.add('active');
+
+        const swap = () => {
+          if (currentPanel) {
+            currentPanel.classList.remove('active', 'fade-in');
+          }
+          targetPanel.classList.add('active');
+          // Force a reflow so the browser registers the opacity:0 state
+          // before fade-in is added, otherwise it can skip straight to
+          // the end state and never actually transition.
+          void targetPanel.offsetWidth;
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => targetPanel.classList.add('fade-in'));
+          });
+          switching = false;
+        };
+
+        if (reduceMotion || !currentPanel) {
+          swap();
+        } else {
+          switching = true;
+          currentPanel.classList.remove('fade-in'); // starts the fade-out
+          setTimeout(swap, FADE_MS);
+        }
       });
     });
   </script>
 
+  <script src="page-transition.js?v=1"></script>
   <script src="nav-mobile.js?v=3"></script>
 
 </body>
